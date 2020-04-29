@@ -1,0 +1,102 @@
+<mat-card class="m-4">
+    <mat-card-header >
+        <mat-card-title >
+            <h1 class="animated fadeIn">
+                {{ titulo | uppercase }}
+            </h1>
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <!--
+        <mat-form-field>
+            <input matInput placeholder="AÃ±adir examen" [formControl]="autocompleteControl"
+                [matAutocomplete]="autocomplete">
+
+            <mat-autocomplete #autocomplete="matAutocomplete" [displayWith]="mostrarNombreExamen"
+                (optionSelected)="seleccionarExamen($event)">
+                <mat-option *ngFor="let examen of examenesFiltrados" [value]="examen">
+                    {{ examen.nombre }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 m-3 animated fadeIn" style="width: 75%;">
+
+            <ng-container matColumnDef="legajo">
+                <th mat-header-cell *matHeaderCellDef>Legajo</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.legajo }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido">
+                <th mat-header-cell *matHeaderCellDef>Apellido</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.apellido }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.nombre }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoDocumento">
+                <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.tipoDocumento }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nroDocumento">
+                <th mat-header-cell *matHeaderCellDef>DNI</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.numeroDocumento }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fechaNacimiento">
+                <th mat-header-cell *matHeaderCellDef>Fecha Nacimiento</th>
+                <td mat-cell *matCellDef="let alumno"> {{ alumno.fechaNacimiento | date:'dd/MM/yyyy' }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let alumno">
+                    <button mat-mini-fab color="primary" (click)="verAlumno(alumno)">
+                        <span class="material-icons">
+                            person
+                        </span>                                
+                    </button>
+                    
+                    <button mat-mini-fab color="primary">
+                        <span class="material-icons">
+                            edit
+                        </span>                            
+                    </button>
+
+                    <button mat-mini-fab color="primary">
+                        <span class="material-icons">
+                            delete_forever
+                        </span>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let examen; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <!--
+        <button mat-raised-button color="primary" class="m-4" (click)="asignar()"
+            [disabled]="dataSource.length === 0">
+            Asignar
+        </button>
+        -->
+
+        <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+            class="float-left mx-2">
+        </mat-paginator>
+
+        <button mat-fab color="primary" class="align-right">
+            <span class="material-icons">
+                person_add
+            </span>
+        </button>
+
+    </mat-card-content>
+</mat-card>
