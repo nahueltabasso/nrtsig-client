@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Alumno } from '../models/alumno.models';
+import { BASE_ENDPOINT } from '../config/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlumnoService {
 
-  endPointBase = 'http://localhost:8090/api/usuarios/alumno';
+  endPointBase = BASE_ENDPOINT + '/alumno';
   cabeceras: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) { }

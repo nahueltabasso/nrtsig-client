@@ -7,6 +7,7 @@ import { AlumnoComponent } from './components/alumno/alumno.component';
 import { CarreraComponent } from './components/carrera/carrera.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
+import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
 
 // IMPORTS DE ANGULAR MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,8 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view
     AppComponent,
     AlumnoComponent,
     CarreraComponent,
-    AlumnoViewComponent
+    AlumnoViewComponent,
+    AlumnoAddComponent
   ],
   entryComponents: [
     AlumnoViewComponent
@@ -49,7 +51,8 @@ import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view
     MatTabsModule,
     MatAutocompleteModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,69 @@
-<p>alumno-view works!</p>
+<mat-card class="m-4">
+    <mat-card-header >
+        <mat-card-title >
+            <h1 class="animated fadeIn">
+                {{ titulo | uppercase }}  {{ alumno.apellido | uppercase }}  {{ alumno.nombre | uppercase }}
+            </h1>
+            <hr>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row animated fadeIn fast">
+            <div class="col-md-4">
+                <img *ngIf="alumno.fotoHashCode"
+                      [src]="baseEndPoint + '/uploads/img' + alumno.id + '?fotoHashCode=' + alumno.fotoHashCode"
+                      class="img-thumbnail rounded">
+                <img *ngIf="!alumno.fotoHashCode"
+                      [src]="'/assets/images/nousuario.jpg'"
+                      class="img-thumbail rounded">
+            </div>
+
+            <div class="modal-body">
+                <div class="container">
+                    <div class="col-sm-12">
+                        <ul *ngIf="alumno" class="list-group mb-3">
+                            <li class="list-group-item active">DATOS PERSONALES</li>
+                            <li class="list-group-item">Sexo : {{ alumno.sexo }}</li>
+                            <li class="list-group-item">{{ alumno.tipoDocumento}} : {{ alumno.numeroDocumento }}</li>
+                            <li class="list-group-item">Legajo : {{ alumno.legajo }}</li>
+                            <li class="list-group-item">Fecha Nacimiento : {{ alumno.fechaNacimiento | date:'dd/MM/yyyy' }}</li>
+                            <li class="list-group-item">CUIT/CUIL : {{ alumno.cuit }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="col-sm">
+                <ul *ngIf="alumno.domicilio" class="list-group mb-3">
+                    <li class="list-group-item active">DATOS DE DOMICILIO</li>
+                    <li class="list-group-item">Direccion : {{ alumno.domicilio.direccion }}</li>
+                    <li class="list-group-item">Nro : {{ alumno.domicilio.numero }}</li>
+                    <li class="list-group-item">Piso : {{ alumno.domicilio.nroPiso  ? alumno.domicilio.nroPiso : ' ---- ' }}</li>
+                    <li class="list-group-item">Dpto : {{ alumno.domicilio.nroDepartamento  ? alumno.domicilio.nroDepartamento : ' ---- ' }}</li>
+                    <li class="list-group-item">Localidad : {{ alumno.ciudad.nombre }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="col-sm">
+                <ul *ngIf="alumno.email" class="list-group mb-3">
+                    <li class="list-group-item active">DATOS DE CONTACTO</li>
+                    <li class="list-group-item">Email : {{ alumno.email }}</li>
+                    <li class="list-group-item">Telefono : {{ alumno.telefono }}</li>
+                </ul>
+            </div>
+        </div>
+ 
+    </mat-card-content>
+</mat-card>
+
+<div class="modal-footer">
+    <button (click)="close()" 
+            type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cerrar
+    </button> 
+</div>

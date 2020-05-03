@@ -27,6 +27,7 @@ export class AlumnoComponent implements OnInit {
     this.alumnoService.listar().subscribe(data => {
       this.alumnos = data;
       this.iniciarPaginador();
+      console.log(data);
     });
   }
 
@@ -38,7 +39,7 @@ export class AlumnoComponent implements OnInit {
 
   verAlumno(alumno: Alumno): void {
     const modalRef = this.dialog.open(AlumnoViewComponent, { 
-      width: '750px',
+      width: '1000px',
       data: { alumno: alumno }
      });
 

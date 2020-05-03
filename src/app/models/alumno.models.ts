@@ -15,6 +15,7 @@ export class Alumno implements Generic {
     sexo: string;
     ciudad: Ciudad;
     domicilio: Domicilio;
+    fotoHashCode: number;
 }
 
 export class Ciudad implements Generic {
@@ -45,3 +46,11 @@ export class Domicilio  {
     nroPiso: number;
     ciudad: Ciudad;
 }
+
+/*
+<mat-form-field appearance="outline">
+<input matInput placeholder="Nombre" [value]="alumno.nombre" disabled>
+</mat-form-field>                          
+<mat-form-field appearance="fill">
+  <input matInput placeholder="Apellido" [value]="alumno.apellido" disabled>
+</mat-form-field>*/
