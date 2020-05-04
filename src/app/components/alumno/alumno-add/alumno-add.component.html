@@ -1,1 +1,49 @@
-<p>alumno-add works!</p>
+<mat-card class="m-4 container-fluid">
+    <mat-card-header >
+        <mat-card-title >
+            <h1 class="animated fadeIn">
+                {{ titulo | uppercase }}
+            </h1>
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-horizontal">
+            <form class="form-group" [formGroup]="formulario">
+
+                <!-- PRIMERA FILA -->
+                <div class="row-clearfix">
+                    <!-- CAMPO NOMBRE -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 noMargin">
+                        <div class=" noMargin">
+                            <mat-form-field class="example-full-width" style="height: 40px;"> 
+                                <input matInput type="text"
+                                                class="form-control"
+                                                placeholder="Nombre Alumno"
+                                                name="nombre"
+                                                formControlName="nombre">
+                            </mat-form-field>
+                        </div>    
+                    </div>
+                    
+                    <!-- CAMPO APELLIDO -->
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 noMargin">
+                        <div class=" noMargin">
+                            <mat-form-field class="example-full-width" style="height: 40px;"> 
+                                <input matInput type="text"
+                                                class="form-control"
+                                                placeholder="Apelldio Alumno"
+                                                name="apellido"
+                                                formControlName="apellido">
+                            </mat-form-field>
+                        </div>    
+                    </div>
+                </div>
+                <!-- FIN PRIMERA FILA -->
+
+                <!-- SEGUNDA FILA -->
+
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>

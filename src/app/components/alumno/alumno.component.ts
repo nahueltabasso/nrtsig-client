@@ -19,15 +19,17 @@ export class AlumnoComponent implements OnInit {
   autoCompleteControl = new FormControl();
   displayedColumns: string[] = ['legajo', 'apellido', 'nombre', 'tipoDocumento', 'nroDocumento', 'fechaNacimiento', 'acciones'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  loading = false;
 
   constructor(private alumnoService: AlumnoService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.loading = true;
     this.alumnoService.listar().subscribe(data => {
       this.alumnos = data;
       this.iniciarPaginador();
-      console.log(data);
+      this.loading = false;
     });
   }
 

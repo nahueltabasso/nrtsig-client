@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlumnoComponent } from './components/alumno/alumno.component';
@@ -52,7 +53,9 @@ import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.co
     MatAutocompleteModule,
     MatDialogModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

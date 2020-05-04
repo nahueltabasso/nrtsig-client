@@ -21,7 +21,29 @@
             </mat-autocomplete>
         </mat-form-field>
         -->
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 m-3 animated fadeIn" style="width: 75%;">
+
+        <!-- CARGANDO DATOS -->
+        <div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">Cargando</h4>
+            <p>
+                <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+            </p>
+            <p class="mb-0">
+                Espere por favor...
+            </p>
+        </div>
+
+        <!-- MENSAJE NO HAY DATOS -->
+        <div *ngIf="!loading && alumnos.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">No hay registros</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+
+        <table mat-table 
+                *ngIf="!loading && alumnos.length > 0"
+                [dataSource]="dataSource" class="mat-elevation-z8 m-3 animated fadeIn" style="width: 75%;">
 
             <ng-container matColumnDef="legajo">
                 <th mat-header-cell *matHeaderCellDef>Legajo</th>
@@ -92,7 +114,7 @@
             class="float-left mx-2">
         </mat-paginator>
 
-        <button mat-fab color="primary" class="align-right">
+        <button mat-fab color="primary" class="align-right" [routerLink]="['/alumnos/add']">
             <span class="material-icons">
                 person_add
             </span>

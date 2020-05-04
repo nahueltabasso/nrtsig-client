@@ -3,10 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlumnoComponent } from './components/alumno/alumno.component';
 import { CarreraComponent } from './components/carrera/carrera.component';
 import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
+import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
 
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
+  { path: 'alumnos/add', component: AlumnoAddComponent },
   { path: 'carreras', component: CarreraComponent }
 ];
 
