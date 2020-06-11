@@ -9,6 +9,7 @@ import { CarreraComponent } from './components/carrera/carrera.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
+import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
 
 // IMPORTS DE ANGULAR MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,8 +24,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,11 @@ import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.co
     MatExpansionModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

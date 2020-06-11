@@ -42,3 +42,7 @@ body{
     animation-name: fadeIn;
   }
   
+  mat-form-field {
+    margin-right: 25px;
+    width: 100%;
+  }

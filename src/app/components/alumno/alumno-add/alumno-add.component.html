@@ -1,49 +1,268 @@
 <mat-card class="m-4 container-fluid">
-    <mat-card-header >
-        <mat-card-title >
+    <mat-card-header>
+        <mat-card-title>
             <h1 class="animated fadeIn">
                 {{ titulo | uppercase }}
             </h1>
+            <hr>
         </mat-card-title>
         <hr>
     </mat-card-header>
     <mat-card-content>
         <div class="form-horizontal">
+
             <form class="form-group" [formGroup]="formulario">
+                <!-- DATOS PERSONALES -->
+                <div class="container">
+                    <h2>DATOS PERSONALES</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO NOMBRE -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput name="nombre" id="nombre" type="text"
+                                                formControlName="nombre" 
+                                                [(ngModel)]="alumno.nombre"
+                                                required>
+                            </mat-form-field>
+                        </div>
 
-                <!-- PRIMERA FILA -->
-                <div class="row-clearfix">
-                    <!-- CAMPO NOMBRE -->
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 noMargin">
-                        <div class=" noMargin">
-                            <mat-form-field class="example-full-width" style="height: 40px;"> 
-                                <input matInput type="text"
-                                                class="form-control"
-                                                placeholder="Nombre Alumno"
-                                                name="nombre"
-                                                formControlName="nombre">
+                        <!-- CAMPO APELLIDO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Apellido</mat-label>
+                                <input matInput name="apellido" id="apellido" type="text"
+                                                formControlName="apellido" 
+                                                [(ngModel)]="alumno.apellido"
+                                                required>
                             </mat-form-field>
-                        </div>    
+                        </div>
                     </div>
-                    
-                    <!-- CAMPO APELLIDO -->
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 noMargin">
-                        <div class=" noMargin">
-                            <mat-form-field class="example-full-width" style="height: 40px;"> 
-                                <input matInput type="text"
-                                                class="form-control"
-                                                placeholder="Apelldio Alumno"
-                                                name="apellido"
-                                                formControlName="apellido">
+                    <!-- FIN PRIMERA FILA -->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO TIPO DOCUMENTO -->
+                        <div class="from-groupo col-md-4">
+                            <mat-form-field>
+                                <mat-label>Tipo Documento</mat-label>
+                                <mat-select name="tipoDocumento" id="tipoDocumento"
+                                            [placeholder]="'Tipo Documento'"
+                                            formControlName="tipoDocumento"
+                                            (selectionChange)="seleccionarTipoDocumento($event.value)"
+                                            required>
+                                    <mat-option value="'DU'">DU</mat-option>
+                                    <mat-option value="'LCI'">LCI</mat-option>
+                                    <mat-option value="'PASAPORTE'">PASAPORTE</mat-option>
+                                </mat-select>
                             </mat-form-field>
-                        </div>    
+                        </div>
+
+                        <!-- CAMPO NUMERO DOCUMENTO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Numero Documento</mat-label>
+                                <input matInput name="nroDocumento" id="nroDocumento" type="text"
+                                                formControlName="numeroDocumento"
+                                                (input)="onChangeNumeroDocumento()"
+                                                required>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO SEXO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Sexo</mat-label>
+                                <mat-select name="sexo" id="sexo"
+                                            [placeholder]="'Sexo'"
+                                            formControlName="genero"
+                                            (selectionChange)="seleccionarSexo($event.value)"
+                                            required>
+                                    <mat-option value="'F'">Femenino</mat-option>
+                                    <mat-option value="'M'">Masculino</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
                     </div>
+                    <!-- FIN SEGUNDA FILA -->
+
+                    <!-- INICIO TERCERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO FECHA NACIMIENTO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <input matInput name="fechaNacimientoTxt" id="fechaNacimientoTxt" type='text' 
+                                                [placeholder]="'Fecha Nacimiento'"
+                                                formControlName="fechaNacimientoTxt" 
+                                                mask="00/00/0000"
+                                                required>
+                                <input name="fechaPicker" id="fechaPicker" type="hidden" 
+                                       [matDatepicker]="picker"
+                                       formControlName="fechaPicker"
+                                       [(ngModel)]="alumno.fechaNacimiento">
+                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO CUIT -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>CUIT</mat-label>
+                                <input matInput>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- FINAL TERCERA FILA -->
                 </div>
-                <!-- FIN PRIMERA FILA -->
 
-                <!-- SEGUNDA FILA -->
+                <!-- DATOS DE CONTACTO -->
+                <div class="container">
+                    <h2>DATOS CONTACTO</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO EMAIL -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="Ex. pat@example.com">
+                                <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                                Please enter a valid email address
+                                </mat-error> -->
+                                <!-- <mat-error *ngIf="emailFormControl.hasError('required')">
+                                Email is <strong>required</strong>
+                                </mat-error> -->
+                            </mat-form-field>
+                        </div>
 
+                        <!-- CAMPO TELEFONO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Telefono</mat-label>
+                                <span matPrefix>+1 &nbsp;</span>
+                                <input type="tel" matInput placeholder="555-555-1234">
+                                <mat-icon matSuffix>mode_edit</mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- FIN PRIMERA FILA -->
+                </div>
+
+                <!-- DATOS DE DOMICILIO -->
+                <div class="container">
+                    <h2>DATOS DOMICILIO</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO DIRECCION -->
+                        <div class="form-group col-md-8">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Calle</mat-label>
+                                <input matInput placeholder="Ex. San Francisco">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO NUMERO CALLE -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Numero</mat-label>
+                                <input matInput placeholder="Ex. San Francisco">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN PRIMERA FILA -->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO SI ES DEPARTAMENTO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Dpto?</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">SI</mat-option>
+                                    <mat-option value="option2">NO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO PISO DEPARTAMENTO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Piso</mat-label>
+                                <input matInput placeholder="1">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO NUMERO DEPARTAMENTO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Nro Dpto</mat-label>
+                                <input matInput placeholder="1">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN SEGUNDA FILA -->
+
+                    <!-- INICIO TERCERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO PAIS -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Pais</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">SI</mat-option>
+                                    <mat-option value="option2">NO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO PROVINCIA -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Provincia</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">SI</mat-option>
+                                    <mat-option value="option2">NO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO LOCALIDAD -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field>
+                                <mat-label>Localidad</mat-label>
+                                <mat-select>
+                                    <mat-option value="option1">SI</mat-option>
+                                    <mat-option value="option2">NO</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- FIN TERCERA FILA-->
+                </div>
             </form>
+        </div>
+
+        <div class="row-clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6" style="margin-bottom: 100px;">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/alumnos']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>
+    
+                <button mat-raised-button color="primary" (click)="save()">Guardar</button>
+            </div>
         </div>
     </mat-card-content>
 </mat-card>
+
