@@ -2,16 +2,13 @@
     <mat-card-header>
         <mat-card-title>
             <h1 class="animated fadeIn">
-                {{ titulo | uppercase }}
+                {{ titulo | uppercase }}  {{ alumno.apellido | uppercase }}  {{ alumno.nombre | uppercase }}
             </h1>
             <hr>
             <!-- MOSTRAR CARTEL SI EL BACKEND DEVUELVE UN ERROR -->
-            <!-- <div *ngIf="error" class="alert alert-warning text-center mt-3 animated fadeIn faster">
-                <h4 class="alert-heading">Hubo un error</h4>
-                <p>
-                    <i class="fa fa-exclamation fa-2x"></i>
-                </p>
-            </div> -->
+            <div>
+
+            </div>
         </mat-card-title>
         <hr>
     </mat-card-header>
@@ -31,17 +28,7 @@
                                 <mat-label>Nombre</mat-label>
                                 <input matInput name="nombre" id="nombre" type="text"
                                                 formControlName="nombre" 
-                                                (input)="onChangeNombre()"
                                                 required>
-                                <mat-error *ngIf="formulario.get('nombre').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('nombre').hasError('pattern')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
-                                </mat-error> 
-                                <mat-error *ngIf="formulario.get('nombre').hasError('maxlenght')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Nombre demasiado largo</label>
-                                </mat-error>
                             </mat-form-field>
                         </div>
 
@@ -51,14 +38,7 @@
                                 <mat-label>Apellido</mat-label>
                                 <input matInput name="apellido" id="apellido" type="text"
                                                 formControlName="apellido" 
-                                                (input)="onChangeApellido()"
                                                 required>
-                                <mat-error *ngIf="formulario.get('apellido').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('apellido').hasError('pattern')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
-                                </mat-error>
                             </mat-form-field>
                         </div>
                     </div>
@@ -66,66 +46,52 @@
 
                     <!-- INICIO SEGUNDA FILA -->
                     <div class="form-row">
+                        <!-- CAMPO LEGAJO -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Legajo</mat-label>
+                                <input matInput name="legajo" id="legajo" type="text"
+                                                formControlName="legajo"
+                                                required>
+                            </mat-form-field>
+                        </div>
+
                         <!-- CAMPO TIPO DOCUMENTO -->
-                        <div class="from-groupo col-md-4">
+                        <div class="from-groupo col-md-3">
                             <mat-form-field>
                                 <mat-label>Tipo Documento</mat-label>
                                 <mat-select name="tipoDocumento" id="tipoDocumento"
                                             [placeholder]="'Tipo Documento'"
                                             formControlName="tipoDocumento"
-                                            (selectionChange)="seleccionarTipoDocumento($event.value)"
                                             required>
                                     <mat-option value="DU">DU</mat-option>
                                     <mat-option value="LCI">LCI</mat-option>
                                     <mat-option value="PASAPORTE">PASAPORTE</mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="formulario.get('tipoDocumento').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
                         <!-- CAMPO NUMERO DOCUMENTO -->
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Numero Documento</mat-label>
                                 <input matInput name="nroDocumento" id="nroDocumento" type="text"
                                                 formControlName="numeroDocumento"
-                                                (input)="onChangeNumeroDocumento()"
                                                 required>
-                                <mat-error *ngIf="formulario.get('numeroDocumento').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('numeroDocumento').hasError('min')">
-                                    <label class="error">DNI no valido</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('numeroDocumento').hasError('max')">
-                                    <label class="error">DNI no valido</label>
-                                </mat-error> 
-                                <mat-error *ngIf="formulario.get('numeroDocumento').hasError('pattern')">
-                                    <label class="error">Ingrese solo numeros</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('numeroDocumento').hasError('maxlength')">
-                                    <label class="error">DNI demasiado largo</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
                         <!-- CAMPO SEXO -->
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <mat-form-field>
                                 <mat-label>Sexo</mat-label>
                                 <mat-select name="sexo" id="sexo"
                                             [placeholder]="'Sexo'"
                                             formControlName="genero"
-                                            (selectionChange)="seleccionarSexo($event.value)"
                                             required>
                                     <mat-option value="F">Femenino</mat-option>
                                     <mat-option value="M">Masculino</mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="formulario.get('genero').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
@@ -141,18 +107,13 @@
                                                 [placeholder]="'Fecha Nacimiento'"
                                                 formControlName="fechaNacimientoTxt"
                                                 mask="00/00/0000"
-                                                (change)="selectFechaNacimiento('input', $event)"
                                                 required>
                                 <input name="fechaPicker" id="fechaPicker" type="hidden" 
                                        [matDatepicker]="picker"
-                                       formControlName="fechaPicker"
-                                       (dateChange)="selectFechaNacimiento('change', $event)">
+                                       formControlName="fechaPicker">
                                 <mat-datepicker-toggle matSuffix [for]="picker">
                                 </mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                <mat-error *ngIf="formulario.get('fechaNacimientoTxt').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
@@ -161,20 +122,7 @@
                             <mat-form-field class="example-full-width">
                                 <mat-label>CUIT</mat-label>
                                 <input matInput name="cuit" id="cuit" type="text"
-                                                formControlName="cuit"
-                                                (input)="onChangeCUIT()">
-                                <mat-error *ngIf="formulario.get('cuit').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('cuit').hasError('maxlenght')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">CUIT demasiado largo</label>
-                                </mat-error>  
-                                <mat-error *ngIf="formulario.get('cuit').hasError('pattern')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingrese solo numeros</label>
-                                </mat-error> 
-                                <!-- <mat-error *ngIf="formulario.get('cuit').hasError('validatorCUIT') && !formulario.get('cuit').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">CUIT no valido. No coincide con DNI</label>                                    
-                                </mat-error> -->
+                                                formControlName="cuit">
                             </mat-form-field>
                         </div>
                     </div>
@@ -187,13 +135,8 @@
                             <mat-form-field>
                                 <mat-label>Pais</mat-label>
                                 <mat-select name="pais" id="pais" 
-                                            formControlName="pais"
-                                            (selectionChange)="seleccionarPais($event.value)">
-                                    <mat-option *ngFor="let pais of comboPaises" [value]="pais">{{ pais.nombre }}</mat-option>
+                                            formControlName="pais">
                                 </mat-select>
-                                <mat-error *ngIf="formulario.get('pais').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
@@ -202,13 +145,8 @@
                             <mat-form-field>
                                 <mat-label>Provincia</mat-label>
                                 <mat-select name="pais" id="pais"
-                                            formControlName="provincia"
-                                            (selectionChange)="seleccionarProvincia($event.value)">
-                                    <mat-option *ngFor="let prov of comboProvincias" [value]="prov">{{ prov.nombre }}</mat-option>
+                                            formControlName="provincia">
                                 </mat-select>
-                                <mat-error *ngIf="formulario.get('provincia').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
 
@@ -217,13 +155,8 @@
                             <mat-form-field>
                                 <mat-label>Localidad</mat-label>
                                 <mat-select name="ciudad" id="ciudad"
-                                            formControlName="ciudad"
-                                            (selectionChange)="seleccionarCiudad($event.value)">
-                                    <mat-option *ngFor="let c of comboCiudades" [value]="c">{{ c.nombre }}</mat-option>
+                                            formControlName="ciudad">
                                 </mat-select>
-                                <mat-error *ngIf="formulario.get('ciudad').hasError('required')">
-                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                                </mat-error>  
                             </mat-form-field>
                         </div>
                     </div>
@@ -377,7 +310,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                 <button mat-raised-button class="btn mx-2 float-right" 
-                                          type="submit" color="primary" (click)="save()"
+                                          type="submit" color="primary" (click)="actualizarAlumno()"
                                           [disabled]="!formulario.valid">
                     Guardar
                 </button>
@@ -385,4 +318,5 @@
         </div>
     </mat-card-content>
 </mat-card>
+
 

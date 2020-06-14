@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
 import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
 import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
+import { AlumnoEditComponent } from './components/alumno/alumno-edit/alumno-edit.component';
 
 // IMPORTS DE ANGULAR MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatIconModule } from '@angular/material/icon';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatIconModule } from '@angular/material/icon';
     AlumnoComponent,
     CarreraComponent,
     AlumnoViewComponent,
-    AlumnoAddComponent
+    AlumnoAddComponent,
+    AlumnoEditComponent
   ],
   entryComponents: [
     AlumnoViewComponent
@@ -64,7 +67,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatMomentDateModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

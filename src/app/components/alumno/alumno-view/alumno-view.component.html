@@ -8,56 +8,217 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="row animated fadeIn fast">
-            <div class="col-md-4">
-                <img *ngIf="alumno.fotoHashCode"
-                      [src]="baseEndPoint + '/uploads/img' + alumno.id + '?fotoHashCode=' + alumno.fotoHashCode"
-                      class="img-thumbnail rounded">
-                <img *ngIf="!alumno.fotoHashCode"
-                      [src]="'/assets/images/nousuario.jpg'"
-                      class="img-thumbail rounded">
-            </div>
 
-            <div class="modal-body">
-                <div class="container">
-                    <div class="col-sm-12">
-                        <ul *ngIf="alumno" class="list-group mb-3">
-                            <li class="list-group-item active">DATOS PERSONALES</li>
-                            <li class="list-group-item">Sexo : {{ alumno.sexo }}</li>
-                            <li class="list-group-item">{{ alumno.tipoDocumento}} : {{ alumno.numeroDocumento }}</li>
-                            <li class="list-group-item">Legajo : {{ alumno.legajo }}</li>
-                            <li class="list-group-item">Fecha Nacimiento : {{ alumno.fechaNacimiento | date:'dd/MM/yyyy' }}</li>
-                            <li class="list-group-item">CUIT/CUIL : {{ alumno.cuit }}</li>
-                        </ul>
+        <div class="form-horizontal">
+
+            <form class="form-group" [formGroup]="formulario">
+                <div class="row animated fadeIn fast">
+                    <div class="col-md-4">
+                        <img *ngIf="alumno.fotoHashCode"
+                              [src]="baseEndPoint + '/uploads/img' + alumno.id + '?fotoHashCode=' + alumno.fotoHashCode"
+                              class="img-thumbnail rounded">
+                        <img *ngIf="!alumno.fotoHashCode"
+                              [src]="'/assets/images/nousuario.jpg'"
+                              class="img-thumbail rounded">
+                    </div>
+        
+        
+                    <div class="modal-body">
+                        <div class="container">
+                            <h1>DATOS PERSONALES</h1>
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <!-- CAMPO NOMBRE -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Nombre</mat-label>
+                                            <input matInput name="nombre" id="nombre" type="text"
+                                                            formControlName="nombre" >
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <!-- CAMPO APELLIDO -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Apellido</mat-label>
+                                            <input matInput name="apellido" id="apellido" type="text"
+                                                            formControlName="apellido">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <!-- CAMPO TIPO DOCUMENTO -->
+                                    <div class="form-group col-md-3">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Tipo Documento</mat-label>
+                                            <input matInput name="tipoDocumento" id="tipoDocumento" type="text"
+                                                            formControlName="tipoDocumento">
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!-- CAMPO NUMERO DOCUMENTO -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Numero Documento</mat-label>
+                                            <input matInput name="numeroDocumento" id="numeroDocumento" type="text"
+                                                            formControlName="numeroDocumento">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- CAMPO LEGAJO -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Legajo</mat-label>
+                                            <input matInput name="legajo" id="legajo" type="text"
+                                                            formControlName="legajo">
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!-- CAMPO FECHA NACIMIENTO -->
+                                    <div class="form-group col-md-6">
+                                        <mat-form-field class="example-full-width">
+                                            <input matInput name="fechaNacimientoTxt" id="fechaNacimientoTxt" type='text' 
+                                                            [placeholder]="'Fecha Nacimiento'"
+                                                            formControlName="fechaNacimientoTxt" 
+                                                            mask="00/00/0000">
+                                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                            </mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- CAMPO CUIT -->
+                                    <div class="form-group col-md-9">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>CUIT</mat-label>
+                                            <input matInput name="cuit" id="cuit" type="text"
+                                                            formControlName="cuit">
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <!-- CAMPO GENERO -->
+                                    <div class="form-group col-md-3">
+                                        <mat-form-field class="example-full-width">
+                                            <mat-label>Sexo</mat-label>
+                                            <input matInput name="sexo" id="sexo" type="text"
+                                                            formControlName="genero">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+        
+        
+                <div class="container">
+                    <h1>DATOS DOMICILIO</h1>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <!-- CAMPO DIRECCION -->
+                            <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Domicilio</mat-label>
+                                    <input matInput name="direccion" id="direccion" type="text"
+                                                    formControlName="direccion">
+                                </mat-form-field>
+                            </div>
 
+                            <!-- CAMPO NUMERO DOMICILIO -->
+                            <div class="form-group col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Numero</mat-label>
+                                    <input matInput name="numeroCalle" id="numeroCalle" type="text"
+                                                    formControlName="numeroCalle">
+                                </mat-form-field>
+                            </div>
 
-        <div class="container">
-            <div class="col-sm">
-                <ul *ngIf="alumno.domicilio" class="list-group mb-3">
-                    <li class="list-group-item active">DATOS DE DOMICILIO</li>
-                    <li class="list-group-item">Direccion : {{ alumno.domicilio.direccion }}</li>
-                    <li class="list-group-item">Nro : {{ alumno.domicilio.numero }}</li>
-                    <li class="list-group-item">Piso : {{ alumno.domicilio.nroPiso  ? alumno.domicilio.nroPiso : ' ---- ' }}</li>
-                    <li class="list-group-item">Dpto : {{ alumno.domicilio.nroDepartamento  ? alumno.domicilio.nroDepartamento : ' ---- ' }}</li>
-                    <li class="list-group-item">Localidad : {{ alumno.ciudad.nombre }}</li>
-                </ul>
-            </div>
-        </div>
+                            <!-- CAMPO NUMERO PISO -->
+                            <div class="form-group col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Nro Piso</mat-label>
+                                    <input matInput name="nroPiso" id="nroPiso" type="text"
+                                                    formControlName="nroPiso">
+                                </mat-form-field>
+                            </div>
 
-        <div class="container">
-            <div class="col-sm">
-                <ul *ngIf="alumno.email" class="list-group mb-3">
-                    <li class="list-group-item active">DATOS DE CONTACTO</li>
-                    <li class="list-group-item">Email : {{ alumno.email }}</li>
-                    <li class="list-group-item">Telefono : {{ alumno.telefono }}</li>
-                </ul>
-            </div>
+                            <!-- CAMPO NUMERO DEPARTAMENTO -->
+                            <div class="form-group col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Nro Dpto</mat-label>
+                                    <input matInput name="nroDpto" id="nroDpto" type="text"
+                                                    formControlName="nroDpto">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- CAMPO PAIS -->
+                            <div class="form-group col-md-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Pais</mat-label>
+                                    <input matInput name="pais" id="pais" type="text"
+                                                    formControlName="pais">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO PROVINCIA -->
+                            <div class="form-group col-md-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Provincia</mat-label>
+                                    <input matInput name="provincia" id="provincia" type="text"
+                                                    formControlName="provincia">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO CIUDAD -->
+                            <div class="form-group col-md-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Ciudad</mat-label>
+                                    <input matInput name="ciudad" id="ciudad" type="text"
+                                                    formControlName="ciudad">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="container">
+                    <h1>DATOS CONTACTO</h1>
+                    <div class="col-sm-12">
+                        <!-- <ul *ngIf="alumno.email" class="list-group mb-3">
+                            <li class="list-group-item active">DATOS DE CONTACTO</li>
+                            <li class="list-group-item">Email : {{ alumno.email }}</li>
+                            <li class="list-group-item">Telefono : {{ alumno.telefono }}</li>
+                        </ul> -->
+                        <div class="row">
+                            <!-- CAMPO EMAIL -->
+                            <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput name="email" id="email" type="text"
+                                                    formControlName="email">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO TELEFONO -->
+                            <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Telefono</mat-label>
+                                    <input matInput name="telefono" id="telefono" type="text"
+                                                    formControlName="telefono">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
- 
     </mat-card-content>
 </mat-card>
 
