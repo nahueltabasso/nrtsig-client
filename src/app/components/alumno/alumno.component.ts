@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { Alumno } from 'src/app/models/alumno.models';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AlumnoViewComponent } from './alumno-view/alumno-view.component';
 import Swal from 'sweetalert2';
+import { PATTERN_ONLYLETTERS } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-alumno',
@@ -14,24 +15,34 @@ import Swal from 'sweetalert2';
 })
 export class AlumnoComponent implements OnInit {
 
-  titulo: string = 'LISTADO DE ALUMNO';
+  titulo: string = 'LISTADO DE ALUMNOS';
   alumnos: Alumno[] = [];
   dataSource: MatTableDataSource<Alumno>;
   autoCompleteControl = new FormControl();
   displayedColumns: string[] = ['legajo', 'apellido', 'nombre', 'tipoDocumento', 'nroDocumento', 'fechaNacimiento', 'acciones'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loading = false;
+  formulario: FormGroup;
+  filter: string;
 
   constructor(private alumnoService: AlumnoService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.createForm();
     this.loading = true;
     this.alumnoService.listar().subscribe(data => {
       this.alumnos = data;
       this.iniciarPaginador();
       this.loading = false;
     });
+  }
+
+  public createForm() {
+    this.formulario = this.fb.group({
+      buscar: [null, Validators.compose([Validators.pattern(PATTERN_ONLYLETTERS)])]
+    })
   }
 
   public iniciarPaginador() {
@@ -48,7 +59,18 @@ export class AlumnoComponent implements OnInit {
 
      modalRef.afterClosed().subscribe(data => {
        this.ngOnInit();
-     })
+     });
+  }
+
+  public onChangeBuscarAlumno(): void {
+    this.filter = this.formulario.controls['buscar'].value;
+  }
+
+  public search() {
+    this.alumnoService.search(this.filter).subscribe(data => {
+      this.alumnos = data;
+      this.iniciarPaginador();
+    })
   }
 
   public eliminarAlumno(alumno: Alumno): void {

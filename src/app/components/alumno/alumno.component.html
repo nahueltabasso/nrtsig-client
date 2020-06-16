@@ -1,5 +1,48 @@
 <div class="container">
     <mat-card class="m-4">
+        <mat-card-header>
+            <div class="card-title">
+                <h1 class="animated fadeIn" style="margin-left: -25px;">FILTROS</h1>
+            </div>
+        </mat-card-header>
+        <div class="card-body">
+            <form class="form-group" [formGroup]="formulario">
+                <div class="row">
+                    <mat-form-field style="margin-right: 15px;">
+                        <input matInput id="buscar" name="buscar" type="text" 
+                                        formControlName="buscar"
+                                        placeholder="Buscar alumnos"
+                                        (input)="onChangeBuscarAlumno()">
+                        <mat-error *ngIf="formulario.get('buscar').hasError('pattern')">
+                            <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
+                        </mat-error>
+                    </mat-form-field>        
+                </div>
+            </form>
+
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                    <button mat-raised-button class="btn m-1 float-right" 
+                                              type="submit" color="primary" (click)="search()"
+                                              [disabled]="!formulario.valid">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+    
+                <!--
+                <mat-autocomplete #autocomplete="matAutocomplete" [displayWith]="mostrarNombreExamen"
+                    (optionSelected)="seleccionarExamen($event)">
+                    <mat-option *ngFor="let examen of examenesFiltrados" [value]="examen">
+                        {{ examen.nombre }}
+                    </mat-option>
+                </mat-autocomplete> -->
+        </div>
+    </mat-card>
+</div>
+
+<div class="container">
+    <mat-card class="m-4">
         <mat-card-header >
             <mat-card-title >
                 <h1 class="animated fadeIn">
@@ -9,20 +52,6 @@
             <hr>
         </mat-card-header>
         <mat-card-content>
-            <!--
-            <mat-form-field>
-                <input matInput placeholder="AÃ±adir examen" [formControl]="autocompleteControl"
-                    [matAutocomplete]="autocomplete">
-    
-                <mat-autocomplete #autocomplete="matAutocomplete" [displayWith]="mostrarNombreExamen"
-                    (optionSelected)="seleccionarExamen($event)">
-                    <mat-option *ngFor="let examen of examenesFiltrados" [value]="examen">
-                        {{ examen.nombre }}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-            -->
-    
             <!-- CARGANDO DATOS -->
             <div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn faster">
                 <h4 class="alert-heading">Cargando</h4>

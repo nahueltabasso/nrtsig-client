@@ -59,4 +59,8 @@ export class AlumnoService {
   listarCiudadesByProvincia(idProvincia: number): Observable<Ciudad[]> {
     return this.http.get<Ciudad[]>(this.endPointCiudad + '/' + idProvincia + '/ciudades');
   }
+
+  search(filter: string): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(`${this.endPointBase}/search?filter=${filter}`);
+  }
 }
