@@ -23,7 +23,7 @@ export class AlumnoComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loading = false;
   formulario: FormGroup;
-  filter: string;
+  filter: string = '';
 
   constructor(private alumnoService: AlumnoService,
               public dialog: MatDialog,
@@ -67,10 +67,24 @@ export class AlumnoComponent implements OnInit {
   }
 
   public search() {
-    this.alumnoService.search(this.filter).subscribe(data => {
-      this.alumnos = data;
-      this.iniciarPaginador();
-    })
+    if (this.filter !== ''){
+      this.alumnoService.search(this.filter).subscribe(data => {
+        this.alumnos = data;
+        this.iniciarPaginador();
+      });  
+    } else {
+      this.alumnoService.listar().subscribe(data => {
+        this.alumnos = data;
+        this.iniciarPaginador();
+        this.loading = false;  
+      }); 
+    }
+  }
+
+  public cleanFilter() {
+    this.filter = '';
+    this.formulario.controls['buscar'].setValue('');
+    this.ngOnInit();
   }
 
   public eliminarAlumno(alumno: Alumno): void {

@@ -47,6 +47,14 @@ body{
     width: 100%;
   }
 
+  .button-add {
+    margin: 10px;
+    margin-left: 435px;
+    margin-top: 10px;
+    margin-block-end: auto;
+  }
+
   table {
     width: 100%;
+    margin: 0rem!important;
   }

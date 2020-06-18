@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BASE_ENDPOINT } from 'src/app/config/app';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
+import { AlumnoService } from 'src/app/services/alumno.service';
 
 @Component({
   selector: 'app-alumno-view',
@@ -11,15 +13,18 @@ import { DatePipe } from '@angular/common';
 })
 export class AlumnoViewComponent implements OnInit {
 
-  baseEndPoint = BASE_ENDPOINT + '/usuarios'
+  baseEndPoint = BASE_ENDPOINT + '/alumno';
   titulo: string;
   alumno: Alumno;
   formulario: FormGroup;
+  fotoSeleccionada: File;
+  error: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<AlumnoViewComponent>,
               private fb: FormBuilder,
-              private datePipe: DatePipe){ }
+              private datePipe: DatePipe,
+              private alumnoService: AlumnoService){ }
 
   ngOnInit() {
     this.createForm();
@@ -30,6 +35,8 @@ export class AlumnoViewComponent implements OnInit {
       this.titulo = 'ALUMNA: ';
     }
     this.loadDataAlumno();
+    console.log(this.alumno);
+
   }
 
   public createForm() {
@@ -102,6 +109,25 @@ export class AlumnoViewComponent implements OnInit {
     this.formulario.controls['email'].disable();
     this.formulario.controls['telefono'].setValue(this.alumno.telefono);
     this.formulario.controls['telefono'].disable();
+  }
+
+  public seleccionarFoto(event) {
+    this.fotoSeleccionada = event.target.files[0];
+    if (this.fotoSeleccionada.type.indexOf('image') < 0) {
+      this.fotoSeleccionada = null;
+      Swal.fire('Error al seleccionar la foto: ', 'El archivo debe ser del tipo imagen', 'error');
+    } 
+  }
+
+  public saveFoto() {
+    this.alumnoService.agregarFotoPerfil(this.alumno, this.fotoSeleccionada).subscribe(data => {
+      Swal.fire('Foto:', 'Foto de Perfil agregada con exito', 'success');
+      this.ngOnInit();
+    }, err => {
+      if (err.status == 400) {
+        this.error = err.error;
+      }
+    })
   }
 
   public close() {

@@ -63,4 +63,10 @@ export class AlumnoService {
   search(filter: string): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(`${this.endPointBase}/search?filter=${filter}`);
   }
+
+  agregarFotoPerfil(alumno: Alumno, archivo: File): Observable<Alumno> {
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+    return this.http.put<Alumno>(this.endPointBase + '/editar-con-foto/' + alumno.id, formData);
+  }
 }

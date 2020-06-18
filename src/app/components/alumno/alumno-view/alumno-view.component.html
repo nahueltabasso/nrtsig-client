@@ -15,11 +15,27 @@
                 <div class="row animated fadeIn fast">
                     <div class="col-md-4">
                         <img *ngIf="alumno.fotoHashCode"
-                              [src]="baseEndPoint + '/uploads/img' + alumno.id + '?fotoHashCode=' + alumno.fotoHashCode"
+                              [src]="baseEndPoint + '/uploads/img/' + alumno.id + '?fotoHashCode=' + alumno.fotoHashCode"
                               class="img-thumbnail rounded">
                         <img *ngIf="!alumno.fotoHashCode"
                               [src]="'/assets/images/nousuario.jpg'"
                               class="img-thumbail rounded">
+                        <div class="input-group mb-3">
+                            <br>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" 
+                                    id="inputGroupFile01" 
+                                    aria-describedby="inputGroupFileAddon01"
+                                    (change)="seleccionarFoto($event)">
+                                <label class="custom-file-label" for="inputGroupFile01">
+                                    {{ alumno.fotoHashCode ? 'Cambiar Foto de Perfil' : 'Subir Foto de Perfil' }}
+                                </label>
+                            </div>
+                        </div>
+                        <button mat-raised-button class="btn m-1" 
+                                        type="submit" color="primary" (click)="saveFoto()" [disabled]="!fotoSeleccionada">
+                            GUARDAR
+                        </button>
                     </div>
         
         
