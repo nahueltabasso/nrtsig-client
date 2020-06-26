@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AlumnoViewComponent } from './alumno-view/alumno-view.component';
 import Swal from 'sweetalert2';
-import { PATTERN_ONLYLETTERS } from 'src/app/shared/constants';
+import { PATTERN_ONLYLETTERS, LABEL_PAGINADOR } from 'src/app/shared/constants';
 
 @Component({
   selector: 'app-alumno',
@@ -48,12 +48,12 @@ export class AlumnoComponent implements OnInit {
   public iniciarPaginador() {
     this.dataSource = new MatTableDataSource<Alumno>(this.alumnos);
     this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Registros por pagina';
+    this.paginator._intl.itemsPerPageLabel = LABEL_PAGINADOR;
   }
 
   public verAlumno(alumno: Alumno): void {
     const modalRef = this.dialog.open(AlumnoViewComponent, { 
-      width: '1000px',
+      width: '50%',
       data: { alumno: alumno }
      });
 

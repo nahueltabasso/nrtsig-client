@@ -1,0 +1,153 @@
+<mat-card class="m-4">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 class="animated fadeIn">
+                {{ titulo }}
+            </h1>
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-horizontal">
+            <div class="modal-body">
+                <form class="form-group" [formGroup]="formulario">
+                    <div class="col-sm-12">
+                        <div class="row animated fadeIn fast">
+                            <!-- CAMPO NOMBRE COMPLETO-->
+                            <div class="form-group col-md-7">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Nombre Carrera</mat-label>
+                                    <input matInput name="nombreCarrera" id="nombreCarrera" type="text"
+                                                    formControlName="nombreCarrera">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO NOMBRE CORTO -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Siglas</mat-label>
+                                    <input matInput name="nombreCorto" id="nombreCorto" type="text"
+                                                    formControlName="nombreCorto">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Duracion</mat-label>
+                                    <input matInput name="duracion" id="duracion" type="text"
+                                                    formControlName="duracion">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div class="row animated fadeIn fast">
+                            <!-- CAMPO CREATE AT -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput name="createAt" id="createAt" type='text' 
+                                                    [placeholder]="'Fecha Alta'"
+                                                    formControlName="createAt" 
+                                                    mask="00/00/0000">
+                                    <mat-datepicker-toggle matSuffix [for]="picker">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO ANIO PLAN (PLAN CARRERA VIGENT) -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Año Plan</mat-label>
+                                    <input matInput name="anioPlan" id="anioPlan" type="text"
+                                                    formControlName="anioPlan">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO RESOLUCION (PLAN CARRERA VIGENTE) -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Resolucion</mat-label>
+                                    <input matInput name="resolucion" id="resolucion" type="text"
+                                                    formControlName="resolucion">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO CANTIDAD DE INSCRIPTOS (PLAN CARRERA VIGENTE) -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Cantidad de Alumnos</mat-label>
+                                    <input matInput name="cantidadAlumnosInscriptos" id="cantidadAlumnosInscriptos" type="text"
+                                                    formControlName="cantidadAlumnosInscriptos">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Descripcion Carrera</mat-label>
+                                    <textarea matInput placeholder="Descripcion de la carrera" disabled></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-tab-group animationDuration="2000ms">
+                        <mat-tab label="Tipo Carrera">
+                            <div class="row" style="margin-top: 10px;">
+                                <!-- CAMPO ID TIPO CARRERA -->
+                                <div class="form-group col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>ID Tipo Carrera</mat-label>
+                                        <input matInput name="idTipoCarrera" id="idTipoCarrera" type="text"
+                                                        formControlName="idTipoCarrera">
+                                    </mat-form-field>
+                                </div> 
+
+                                <!-- CAMPO TIPO CARRERA -->
+                                <div class="form-group col-md-8">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Tipo Carrera</mat-label>
+                                        <input matInput name="tipoCarrera" id="tipoCarrera" type="text"
+                                                        formControlName="tipoCarrera">
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Departamento">
+                            <div class="row" style="margin-top: 10px;">
+                                <!-- CAMPO ID DEPARTAMENTO -->
+                                <div class="form-group col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>ID Departamento</mat-label>
+                                        <input matInput name="idDpto" id="idDpto" type="text"
+                                                        formControlName="idDpto">
+                                    </mat-form-field>
+                                </div> 
+
+                                <!-- CAMPO DENOMINACION -->
+                                <div class="form-group col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Denominacion</mat-label>
+                                        <input matInput name="denominacionDpto" id="denominacionDpto" type="text"
+                                                        formControlName="denominacionDpto">
+                                    </mat-form-field>
+                                </div> 
+
+                                <!-- CAMPO CODIGO DEPARTAMENTO -->
+                                <div class="form-group col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Codigo</mat-label>
+                                        <input matInput name="codigoDpto" id="codigoDpto" type="text"
+                                                        formControlName="codigoDpto">
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                        </mat-tab>
+                    </mat-tab-group>
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

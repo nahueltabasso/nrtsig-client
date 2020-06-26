@@ -11,6 +11,9 @@ import { LayoutModule } from './layout/layout.module';
 import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
 import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
 import { AlumnoEditComponent } from './components/alumno/alumno-edit/alumno-edit.component';
+import { CarreraViewComponent } from './components/carrera/carrera-view/carrera-view.component';
+import { CarreraAddComponent } from './components/carrera/carrera-add/carrera-add.component';
+import { CarreraEditComponent } from './components/carrera/carrera-edit/carrera-edit.component';
 
 // IMPORTS DE ANGULAR MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +32,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatIconModule } from '@angular/material/icon';
+
+// IMPORTS DE PIPES
 import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -38,10 +44,14 @@ import { DatePipe } from '@angular/common';
     CarreraComponent,
     AlumnoViewComponent,
     AlumnoAddComponent,
-    AlumnoEditComponent
+    AlumnoEditComponent,
+    CarreraViewComponent,
+    CarreraAddComponent,
+    CarreraEditComponent
   ],
   entryComponents: [
-    AlumnoViewComponent
+    AlumnoViewComponent,
+    CarreraViewComponent
   ],
   imports: [
     BrowserModule,

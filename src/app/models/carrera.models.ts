@@ -1,3 +1,5 @@
+import { Alumno } from './alumno.models';
+
 export class Carrera {
     id: number;
     nombre: string;
@@ -5,4 +7,38 @@ export class Carrera {
     duracion: number;
     descripcion: string;
     createAt: Date;
+    tipoCarrera: TipoCarrera;
+    departamento: Departamento;
+    carreraActiva: boolean;
 }
+
+export class TipoCarrera {
+    id: number;
+    tipoCarrera: string;
+}
+
+export class Departamento {
+    id: number;
+    codigo: string;
+    denominacion: string;
+}
+
+export class CarreraFiltrosDTO {
+    nombre: string;
+    duracion: number;
+    tipoCarrera: TipoCarrera;
+    departamento: Departamento;
+    estadoCarrera: boolean;
+}
+
+export class PlanCarrera {
+    id: number;
+    anioPlan: number;
+    fechaCierre: Date;
+    resolucion: string;
+    createAt: Date;
+    carrera: Carrera;
+    departamento: Departamento;
+    alumnosInscriptos: Alumno[]; 
+}
+
