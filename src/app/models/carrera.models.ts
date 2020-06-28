@@ -15,6 +15,8 @@ export class Carrera {
 export class TipoCarrera {
     id: number;
     tipoCarrera: string;
+    cantidadMaxAnios: number;
+    cantidadMinAnios: number;
 }
 
 export class Departamento {

@@ -188,7 +188,6 @@ export class AlumnoAddComponent implements OnInit {
     }, err => {
       if (err.status == 400) {
         this.error = err.error;
-        console.log(this.error);
       }
     });
   }

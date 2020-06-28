@@ -35,8 +35,6 @@ export class AlumnoViewComponent implements OnInit {
       this.titulo = 'ALUMNA: ';
     }
     this.loadDataAlumno();
-    console.log(this.alumno);
-
   }
 
   public createForm() {

@@ -53,7 +53,7 @@ export class AlumnoComponent implements OnInit {
 
   public verAlumno(alumno: Alumno): void {
     const modalRef = this.dialog.open(AlumnoViewComponent, { 
-      width: '50%',
+      width: '1000px',
       data: { alumno: alumno }
      });
 

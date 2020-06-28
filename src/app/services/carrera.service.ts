@@ -35,4 +35,8 @@ export class CarreraService {
   search(filter: CarreraFiltrosDTO): Observable<Carrera[]> {
     return this.http.post<Carrera[]>(this.endPointBase + '/search', filter);
   }
+
+  crearCarrera(carrera: Carrera): Observable<Carrera> {
+    return this.http.post<Carrera>(this.endPointBase, carrera);
+  }
 }

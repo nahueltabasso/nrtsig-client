@@ -1,10 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Carrera, PlanCarrera } from 'src/app/models/carrera.models';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { PlancarreraService } from 'src/app/services/plancarrera.service';
+import { Alumno } from 'src/app/models/alumno.models';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-carrera-view',
@@ -16,10 +18,12 @@ export class CarreraViewComponent implements OnInit {
   titulo: string;
   carrera: Carrera;
   formulario: FormGroup;
-  formularioTipoCarrera: FormGroup;
-  formularioDepartamento: FormGroup;
   error: any;
   planCarreraVigente: PlanCarrera = new PlanCarrera();
+  alumnosInscriptos: Alumno[] = [];
+  displayedColumnsAlumnos: string[] = ['nombre', 'apellido', 'nroDni', 'acciones'];
+  resultLength: number = 0;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               public dialogRef: MatDialogRef<CarreraViewComponent>,
@@ -31,9 +35,10 @@ export class CarreraViewComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     this.carrera = this.data.carrera as Carrera;
-    console.log(this.carrera);
     this.planCarreraService.obtenerPlanCarreraVigente(this.carrera.id).subscribe(data => {
       this.planCarreraVigente = data;
+      this.alumnosInscriptos = this.planCarreraVigente.alumnosInscriptos;
+      this.resultLength = this.alumnosInscriptos.length;
       this.loadData();
     });
     this.titulo = this.carrera.nombre.toUpperCase();
@@ -73,7 +78,6 @@ export class CarreraViewComponent implements OnInit {
     // DATOS DEL PLAN DE CARRERA VIGENTE
     this.formulario.controls['anioPlan'].setValue(this.planCarreraVigente.anioPlan);
     this.formulario.controls['anioPlan'].disable();
-    console.log(this.planCarreraVigente.resolucion)
     this.formulario.controls['resolucion'].setValue(this.planCarreraVigente.resolucion);
     this.formulario.controls['resolucion'].disable();
     this.formulario.controls['cantidadAlumnosInscriptos'].setValue(this.planCarreraVigente.alumnosInscriptos.length + ' alumnos');
@@ -87,7 +91,7 @@ export class CarreraViewComponent implements OnInit {
 
     // DATOS DEL DEPARTAMENTO
     this.formulario.controls['idDpto'].setValue(this.carrera.departamento.id);
-    this.formulario.controls['isDpto'].disable();
+    this.formulario.controls['idDpto'].disable();
     this.formulario.controls['denominacionDpto'].setValue(this.carrera.departamento.denominacion);
     this.formulario.controls['denominacionDpto'].disable();
     this.formulario.controls['codigoDpto'].setValue(this.carrera.departamento.codigo);

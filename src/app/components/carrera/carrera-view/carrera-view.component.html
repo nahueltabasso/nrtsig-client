@@ -86,7 +86,9 @@
                             <div class="form-group col-md-12">
                                 <mat-form-field class="example-full-width">
                                     <mat-label>Descripcion Carrera</mat-label>
-                                    <textarea matInput placeholder="Descripcion de la carrera" disabled></textarea>
+                                    <textarea matInput placeholder="Descripcion de la carrera"
+                                                       formControlName="descripcion"
+                                                       disabled></textarea>
                                 </mat-form-field>
                             </div>
                         </div>
@@ -127,7 +129,7 @@
                                 </div> 
 
                                 <!-- CAMPO DENOMINACION -->
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Denominacion</mat-label>
                                         <input matInput name="denominacionDpto" id="denominacionDpto" type="text"
@@ -136,7 +138,7 @@
                                 </div> 
 
                                 <!-- CAMPO CODIGO DEPARTAMENTO -->
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-2">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Codigo</mat-label>
                                         <input matInput name="codigoDpto" id="codigoDpto" type="text"
@@ -145,9 +147,55 @@
                                 </div> 
                             </div>
                         </mat-tab>
+
+                        <mat-tab label="Alumnos">
+                            <!-- COMPLETAR CON UNA GRILLA DE LOS ALUMNOS -->
+                            <!-- <div class="example-container mat-elevation-z8">
+                                
+                                <div class="example-table-container">
+                              
+                                  <table mat-table [dataSource]="alumnosInscriptos" class="example-table"
+                                         matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+                                    <ng-container matColumnDef="nombre">
+                                      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                                      <td mat-cell *matCellDef="let row">{{ row.nombre }}</td>
+                                    </ng-container>
+                              
+                                    <ng-container matColumnDef="apellido">
+                                      <th mat-header-cell *matHeaderCellDef>Apellido</th>
+                                      <td mat-cell *matCellDef="let row">{{ row.apellido }}</td>
+                                    </ng-container>
+                              
+                                    <ng-container matColumnDef="nroDni">
+                                      <th mat-header-cell *matHeaderCellDef>Nro DNI</th>
+                                      <td mat-cell *matCellDef="let row">{{ row.numeroDocumento }}</td>
+                                    </ng-container>
+                              
+                                    <ng-container matColumnDef="acciones">
+                                      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+                                        Acciones
+                                      </th>
+                                      <td mat-cell *matCellDef="let row">{{ row.sexo }}</td>
+                                    </ng-container>
+                              
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAlumnos"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAlumnos;"></tr>
+                                  </table>
+                                </div>
+                              
+                                <mat-paginator [length]="resultLength" [pageSize]="3"></mat-paginator>
+                              </div> -->
+                        </mat-tab>
                     </mat-tab-group>
                 </form>
             </div>
         </div>
     </mat-card-content>
 </mat-card>
+
+<div class="modal-footer">
+    <button (click)="close()" 
+            type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cerrar
+    </button> 
+</div>
