@@ -10,6 +10,7 @@ export class Carrera {
     tipoCarrera: TipoCarrera;
     departamento: Departamento;
     carreraActiva: boolean;
+    planesCarrera: PlanCarrera[];
 }
 
 export class TipoCarrera {

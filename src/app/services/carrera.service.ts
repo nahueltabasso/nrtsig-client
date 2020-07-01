@@ -39,4 +39,8 @@ export class CarreraService {
   crearCarrera(carrera: Carrera): Observable<Carrera> {
     return this.http.post<Carrera>(this.endPointBase, carrera);
   }
+
+  activarCarrera(idCarrera: Number): Observable<void> {
+    return this.http.put<void>(this.endPointBase + '/' + idCarrera + '/activar-carrera', null);
+  }
 }

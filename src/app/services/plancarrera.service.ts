@@ -17,4 +17,12 @@ export class PlancarreraService {
   obtenerPlanCarreraVigente(idCarrera: number): Observable<PlanCarrera> {
     return this.http.get<PlanCarrera>(this.endPointBase + '/plan-carrera-vigente/' + idCarrera);
   }
+
+  save(planCarrera: PlanCarrera): Observable<PlanCarrera> {
+    return this.http.post<PlanCarrera>(this.endPointBase, planCarrera);
+  }
+
+  cerrarPlanCarrera(id: number): Observable<void> {
+    return this.http.put<void>(this.endPointBase + '/' + id + '/cerrar-plancarrera', null);
+  }
 }

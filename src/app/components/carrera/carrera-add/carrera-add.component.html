@@ -6,6 +6,13 @@
         <hr>
     </mat-card-header>
     <mat-card-content>
+        <!-- MENSAJE ERROR -->
+        <div *ngIf="flagError" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">{{ error }}</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
         <div class="form-horizontal">
             <form class="form-group" [formGroup]="formulario">
                 <!-- DATOS DE LA CARRERA -->
@@ -177,27 +184,43 @@
                     <!-- COLUMNA DENOMICACION DEPARTAMENTO-->
                     <ng-container matColumnDef="dpto">
                         <mat-header-cell *matHeaderCellDef>Dpto</mat-header-cell>
-                        <mat-cell *matCellDef="let row">{{ row.departamento.dnominacion }}</mat-cell>
+                        <mat-cell *matCellDef="let row">{{ row.departamento.denominacion }}</mat-cell>
                     </ng-container>
 
                     <!-- COLUMNA ACCIONES -->
                     <ng-container matColumnDef="acciones">
                         <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-mini-fab color="primary" (click)="cerrarPlan(row)">
+                                <span class="material-icons">
+                                    remove_circle_outline
+                                </span>
+                            </button>
+                        </mat-cell>
                     </ng-container>
 
                     <mat-header-row *matHeaderRowDef="displayedColumnsPlanCarrera"></mat-header-row>
                     <mat-row *matRowDef="let row; columns: displayedColumnsPlanCarrera;"></mat-row>
                 </mat-table>
 
-                <div class="container">
-                    <button mat-fab color="primary" class="button-add" (click)="asignarPlanCarrera()" style="margin-left: 975px;">
+                <div class="container" *ngIf="!flagAddPlanCarreraButton">
+                    <button mat-fab color="primary" class="button-add" (click)="asignarPlanCarrera()" 
+                                    style="margin-left: 975px;">
                         <span class="material-icons">
                             library_add
                         </span>
                     </button>
                 </div>
             </mat-tab>
-            <mat-tab label="Materias"></mat-tab>
+            <mat-tab label="Materias">
+                <!-- MENSAJE NO HAY MATERIAS PARA ESTA CARRERA -->
+                <div class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                    <h4 class="alert-heading">No hay Materias</h4>
+                    <p>
+                        <i class="fa fa-exclamation fa-2x"></i>
+                    </p>
+                </div>
+            </mat-tab>
         </mat-tab-group>    
     </div>
 </mat-card>

@@ -149,10 +149,17 @@
                         </mat-tab>
 
                         <mat-tab label="Alumnos">
+                            <!-- MENSAJE NO HAY ALUMNOS INSCRIPTOS EN LA CARRERA -->
+                            <div class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                                <h4 class="alert-heading">No hay Alumnos inscriptos</h4>
+                                <p>
+                                    <i class="fa fa-exclamation fa-2x"></i>
+                                </p>
+                            </div>
                             <!-- COMPLETAR CON UNA GRILLA DE LOS ALUMNOS -->
-                            <!-- <div class="example-container mat-elevation-z8">
+                            <div class="example-container mat-elevation-z8">
                                 
-                                <div class="example-table-container">
+                                <!-- <div class="example-table-container">
                               
                                   <table mat-table [dataSource]="alumnosInscriptos" class="example-table"
                                          matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
@@ -183,8 +190,8 @@
                                   </table>
                                 </div>
                               
-                                <mat-paginator [length]="resultLength" [pageSize]="3"></mat-paginator>
-                              </div> -->
+                                <mat-paginator [length]="resultLength" [pageSize]="3"></mat-paginator> -->
+                              </div>
                         </mat-tab>
                     </mat-tab-group>
                 </form>

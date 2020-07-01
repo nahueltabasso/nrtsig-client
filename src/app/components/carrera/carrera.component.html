@@ -175,7 +175,8 @@
                             </span>                            
                         </button>
     
-                        <button mat-mini-fab color="primary" (click)="eliminarCarrera(carrera)">
+                        <button mat-mini-fab color="primary" (click)="eliminarCarrera(carrera)"
+                                             [disabled]="carrera.planesCarrera.length > 0">
                             <span class="material-icons">
                                 delete_forever
                             </span>

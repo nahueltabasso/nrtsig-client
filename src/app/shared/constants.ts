@@ -13,3 +13,6 @@ export const MAX_LENGTH_NAME_LASTNAME = 30;
 
 // LABEL PAGINADOR
 export const LABEL_PAGINADOR = 'Registro por pagina';
+
+// MENSAJE DE ERROR
+export const ERROR_MESSAGE = 'Ocurrio un error. No se pudo guardar en la Base de Datos';

@@ -1,1 +1,91 @@
-<h1>{{ titulo }}</h1>
+<mat-card class="m-4">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 class="animated fadeIn">
+                {{ titulo }}
+            </h1>
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <!-- MENSAJE ERROR -->
+        <div *ngIf="error" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">El año del plan no puede ser mayor al año actual</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+        <div class="form-horizonal">
+            <form class="form-group" [formGroup]="formulario">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Año Plan</mat-label>
+                            <input matInput name="anioPlan" id="anioPlan" type="text"
+                                            formControlName="anioPlan" 
+                                            (input)="onChangeAnioPlan()"
+                                            required>
+                            <mat-error *ngIf="formulario.get('anioPlan').hasError('required')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                            </mat-error>  
+                            <mat-error *ngIf="formulario.get('anioPlan').hasError('pattern')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                            </mat-error>  
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-md-8">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Resolucion</mat-label>
+                            <input matInput name="resolucion" id="resolucion" type="text"
+                                            formControlName="resolucion"
+                                            (input)="onChangeResolucion()" 
+                                            required>
+                            <mat-error *ngIf="formulario.get('resolucion').hasError('required')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                            </mat-error>  
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Carrera</mat-label>
+                            <input matInput name="carrera" id="carrera" type="text"
+                                            formControlName="carrera">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Departamento</mat-label>
+                            <input matInput name="departamento" id="departamento" type="text"
+                                            formControlName="departamento">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
+<div class="row clearfix">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
+        <button mat-raised-button class="btn btn-danger mx-2" (click)="close()">
+            <span class="material-icons">
+                arrow_back
+            </span>
+            Regresar
+        </button>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+        <button mat-raised-button class="btn mx-2 float-right" 
+                                  type="submit" color="primary" (click)="save()"
+                                  [disabled]="!formulario.valid">
+            <span class="material-icons">
+                save
+            </span>
+            Guardar
+        </button>
+    </div>
+</div>
