@@ -25,4 +25,8 @@ export class PlancarreraService {
   cerrarPlanCarrera(id: number): Observable<void> {
     return this.http.put<void>(this.endPointBase + '/' + id + '/cerrar-plancarrera', null);
   }
+
+  eliminarPlanCarrera(id: number): Observable<void> {
+    return this.http.delete<void>(this.endPointBase + '/' + id);
+  }
 }

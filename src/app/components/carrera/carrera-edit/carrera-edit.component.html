@@ -1,1 +1,232 @@
-<p>carrera-edit works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <!-- TITULO DEL FORMULARIO -->
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- MENSAJE ERROR -->
+        <div *ngIf="flagError" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">{{ error }}</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+        <div class="form-horizontal">
+            <form class="form-group" [formGroup]="formulario">
+                <!-- DATOS DE LA CARRERA -->
+                <div class="container">
+                    <h2>DATOS CARRERA</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO NOMBRE CARRERA -->
+                        <div class="form-group col-md-7">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre Carrera</mat-label>
+                                <input matInput name="nombreCarrera" id="nombreCarrera" type="text"
+                                                formControlName="nombreCarrera" 
+                                                (input)="onChangeNombreCarrera()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('nombreCarrera').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO NOMBRE CORTO CARRERA -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre Corto</mat-label>
+                                <input matInput name="nombreCorto" id="nombreCorto" type="text"
+                                                formControlName="nombreCorto" 
+                                                (input)="onChangeNombreCorto()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('nombreCorto').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                                <mat-error *ngIf="formulario.get('nombreCorto').hasError('pattern')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
+                                </mat-error> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO DURACION CARRERA -->
+                        <div class="form-group col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Duracion</mat-label>
+                                <input matInput name="duracion" id="duracion" type="text"
+                                                formControlName="duracion"
+                                                (input)="onChangeDuracion()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('duracion').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                                <mat-error *ngIf="formulario.get('duracion').hasError('pattern')">
+                                    <label class="error">Ingrese solo numeros</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN PRIMERA FILA-->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO DESCRIPCION CARRERA -->
+                        <div class="form-group col-md-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Descripcion Carrera</mat-label>
+                                <textarea matInput placeholder="Descripcion de la carrera"
+                                                   formControlName="descripcion"
+                                                   (input)="onChangeDescripcion()"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN SEGUNDA FILA -->
+
+                    <!-- INICIO TERCERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO TIPO CARRERA -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Tipo Carrera</mat-label>
+                                <input matInput name="tipoCarrera" id="tipoCarrera" type="text"
+                                                formControlName="tipoCarrera" disabled>
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO DEPARTAMENTO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Departamento</mat-label>
+                                <input matInput name="departamento" id="departamento" type="text"
+                                                formControlName="departamento" disabled>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/carreras']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="save()"
+                                          [disabled]="!formulario.valid">
+                    <span class="material-icons">
+                        save
+                    </span>
+                    Guardar
+                </button>
+                <button mat-raised-button class="btn mx-2 float-right" 
+                                          type="submit" color="warn" (click)="edit()"
+                                          [disabled]="!flagEditButton">
+                    <span class="material-icons">
+                        edit
+                    </span>  
+                    Editar
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<mat-card style="margin-top: 50px;">
+    <div class="container">
+        <mat-tab-group animationDuration="2000ms">
+            <mat-tab label="Plan Carrera">
+                <!-- MENSAJE NO HAY PLAN CARRERA -->
+                <div *ngIf="planesCarreraDataSource.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                    <h4 class="alert-heading">No hay Plan Asignado</h4>
+                    <p>
+                        <i class="fa fa-exclamation fa-2x"></i>
+                    </p>
+                </div>
+
+                <mat-table *ngIf="planesCarreraDataSource.length > 0" [dataSource]="planesCarreraDataSource" class="mat-elevation-z8">
+                    <!-- COLUMNA ID -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+                    </ng-container>
+
+                    <!-- COLUMNA ANIO PLAN -->
+                    <ng-container matColumnDef="anioPlan">
+                        <mat-header-cell *matHeaderCellDef>Año Plan</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.anioPlan }}</mat-cell>
+                    </ng-container>
+
+                    <!-- COLUMNA FECHA CIERRE -->
+                    <ng-container matColumnDef="fechaCierre">
+                        <mat-header-cell *matHeaderCellDef>Fecha Cierre</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.fechaCierre }}</mat-cell>
+                    </ng-container>
+
+                    <!-- COLUMNA RESOLUCION -->
+                    <ng-container matColumnDef="resolucion">
+                        <mat-header-cell *matHeaderCellDef>Resolucion</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.resolucion }}</mat-cell>
+                    </ng-container>
+
+                    <!-- COLUMNA DENOMICACION DEPARTAMENTO-->
+                    <ng-container matColumnDef="dpto">
+                        <mat-header-cell *matHeaderCellDef>Dpto</mat-header-cell>
+                        <mat-cell *matCellDef="let row">{{ row.departamento.denominacion }}</mat-cell>
+                    </ng-container>
+
+                    <!-- COLUMNA ACCIONES -->
+                    <ng-container matColumnDef="acciones">
+                        <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button mat-mini-fab color="primary" (click)="verPlanCarrera(row)">
+                                <span class="material-icons">
+                                    visibility
+                                    </span>
+                            </button>
+                            <button mat-mini-fab color="primary" (click)="cerrarPlan(row)">
+                                <span class="material-icons">
+                                    remove_circle_outline
+                                </span>
+                            </button>
+                            <button mat-mini-fab color="primary" (click)="eliminarPlanCarrera(row)">
+                                <span class="material-icons">
+                                    delete_forever
+                                </span>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumnsPlanCarrera"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumnsPlanCarrera;"></mat-row>
+                </mat-table>
+
+                <div class="container" *ngIf="!flagAddPlanCarreraButton">
+                    <button mat-fab color="primary" class="button-add" (click)="asignarPlanCarrera()" 
+                                    style="margin-left: 975px;">
+                        <span class="material-icons">
+                            library_add
+                        </span>
+                    </button>
+                </div>
+            </mat-tab>
+            <mat-tab label="Materias">
+                <!-- MENSAJE NO HAY MATERIAS PARA ESTA CARRERA -->
+                <div class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                    <h4 class="alert-heading">No hay Materias</h4>
+                    <p>
+                        <i class="fa fa-exclamation fa-2x"></i>
+                    </p>
+                </div>
+            </mat-tab>
+        </mat-tab-group>    
+    </div>
+</mat-card>

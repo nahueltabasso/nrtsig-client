@@ -141,6 +141,9 @@ export class CarreraAddComponent implements OnInit {
     this.planCarreraService.cerrarPlanCarrera(planCarrera.id).subscribe(data => {
       this.flagAddPlanCarreraButton = false;
       this.planesCarreraDataSource = [];
-    })
+      this.carreraService.desactivarCarrera(planCarrera.carrera.id).subscribe(data => {
+        Swal.fire('Atencion', 'La carrera ha sido desactivada', 'info');
+      });
+    });
   }
 }

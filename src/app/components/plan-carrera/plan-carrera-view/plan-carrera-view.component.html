@@ -1,0 +1,77 @@
+<h1 class="animated fadeIn" style="padding-left: 25px;">
+    {{ titulo }}
+</h1>
+
+<div class="form-horizontal">
+    <div class="modal-body">
+        <form class="form-group" [formGroup]="formulario">
+            <div class="col-sm-12">
+                <div class="row animated fadeIn fast">
+                    <!-- CAMPO CARRERA -->
+                    <div class="form-group col-md-7">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Carrera</mat-label>
+                            <input matInput name="carrera" id="carrera" type="text"
+                                            formControlName="carrera">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- CAMPO DEPARTAMENTO -->
+                    <div class="form-group col-md-5">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Departamento</mat-label>
+                            <input matInput name="departamento" id="departamento" type="text"
+                                            formControlName="departamento">
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="row animated fadeIn fast">
+                    <!-- CAMPO AÑO PLAN -->
+                    <div class="form-group col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Año Plan</mat-label>
+                            <input matInput name="anioPlan" id="anioPlan" type="text"
+                                            formControlName="anioPlan">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- CAMPO RESOLUCION -->
+                    <div class="form-group col-md-9">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Resolucion</mat-label>
+                            <input matInput name="resolucion" id="resolucion" type="text"
+                                            formControlName="resolucion">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- CAMPO FECHA CREACION -->
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Fecha Creacion</mat-label>
+                            <input matInput name="createAt" id="createAt" type="text"
+                                            formControlName="createAt">
+                        </mat-form-field>
+                    </div>
+                    
+                    <!-- CAMPO FECHA CIERRE -->
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Fecha Cierre</mat-label>
+                            <input matInput name="fechaCierre" id="fechaCierre" type="text"
+                                            formControlName="fechaCierre">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="margin-top: -35px;">
+        <button (click)="close()" 
+                type="button" class="btn btn-secondary" data-dismiss="modal">
+                Cerrar
+        </button> 
+    </div>
+</div>

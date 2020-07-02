@@ -144,8 +144,8 @@
     </mat-card-content>
 </mat-card>
 
-<mat-card>
-    <div class="container" *ngIf="flagTab">
+<mat-card *ngIf="flagTab" style="margin-top: 50px;">
+    <div class="container">
         <mat-tab-group animationDuration="2000ms">
             <mat-tab label="Plan Carrera">
                 <!-- MENSAJE NO HAY PLAN CARRERA -->

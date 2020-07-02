@@ -36,6 +36,8 @@ import { MatIconModule } from '@angular/material/icon';
 // IMPORTS DE PIPES
 import { DatePipe } from '@angular/common';
 import { AsignarPlancarreraComponent } from './components/carrera/asignar-plancarrera/asignar-plancarrera.component';
+import { PlanCarreraComponent } from './components/plan-carrera/plan-carrera.component';
+import { PlanCarreraViewComponent } from './components/plan-carrera/plan-carrera-view/plan-carrera-view.component';
 
 
 @NgModule({
@@ -49,7 +51,9 @@ import { AsignarPlancarreraComponent } from './components/carrera/asignar-planca
     CarreraViewComponent,
     CarreraAddComponent,
     CarreraEditComponent,
-    AsignarPlancarreraComponent
+    AsignarPlancarreraComponent,
+    PlanCarreraComponent,
+    PlanCarreraViewComponent
   ],
   entryComponents: [
     AlumnoViewComponent,

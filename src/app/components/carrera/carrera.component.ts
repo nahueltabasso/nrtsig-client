@@ -36,6 +36,7 @@ export class CarreraComponent implements OnInit {
     this.loading = true;
     this.carreraService.listar().subscribe(data => {
       this.carreras = data;
+      console.log(this.carreras)
       this.iniciarPaginador();
       this.loading = false;
     });

@@ -43,4 +43,16 @@ export class CarreraService {
   activarCarrera(idCarrera: Number): Observable<void> {
     return this.http.put<void>(this.endPointBase + '/' + idCarrera + '/activar-carrera', null);
   }
+
+  getCarrera(idCarrera: number): Observable<Carrera> {
+    return this.http.get<Carrera>(this.endPointBase + '/' + idCarrera);
+  }
+
+  editarCarrera(carrera: Carrera): Observable<Carrera> {
+    return this.http.put<Carrera>(this.endPointBase + '/' + carrera.id, carrera);
+  }
+
+  desactivarCarrera(idCarrera: number): Observable<void> {
+    return this.http.get<void>(this.endPointBase + '/' + idCarrera + '/desactivar-carrera');
+  }
 }
