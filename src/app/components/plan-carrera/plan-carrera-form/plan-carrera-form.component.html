@@ -1,0 +1,114 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <!-- TITULO DEL FORMULARIO -->
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- MENSAJE ERROR -->
+        <div *ngIf="flagError" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">{{ error }}</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+        <div class="form-horizontal">
+            <form class="form-group" [formGroup]="formulario">
+                <!-- DATOS DE LA CARRERA -->
+                <div class="container">
+                    <h2>DATOS CARRERA</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO RESOLUCION -->
+                        <div class="form-group col-md-9">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Resolucion</mat-label>
+                                <input matInput name="resolucion" id="resolucion" type="text"
+                                                formControlName="resolucion" 
+                                                (input)="onChangeResolucion()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('resolucion').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO ANIO PLAN -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Anio Plan</mat-label>
+                                <input matInput name="anioPlan" id="anioPlan" type="text"
+                                                formControlName="anioPlan" 
+                                                (input)="onChangeAnioPlan()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('anioPlan').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                                <mat-error *ngIf="formulario.get('anioPlan').hasError('pattern')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                                </mat-error> 
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN PRIMERA FILA-->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO DEPARTAMENTO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field>
+                                <mat-label>Departamento</mat-label>
+                                <mat-select name="departamento" id="departamento" 
+                                            formControlName="departamento"
+                                            (selectionChange)="seleccionarDepartamento($event.value)">
+                                    <mat-option *ngFor="let dpto of comboDepartamento" [value]="dpto">{{ dpto.denominacion }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formulario.get('departamento').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO DEPARTAMENTO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field>
+                                <mat-label>Carrera</mat-label>
+                                <mat-select name="carrera" id="carrera" 
+                                            formControlName="carrera"
+                                            (selectionChange)="seleccionarCarrera($event.value)">
+                                    <mat-option *ngFor="let carrera of comboCarrera" [value]="carrera">{{ carrera.nombre }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formulario.get('carrera').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/plancarrera']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="save()"
+                                          [disabled]="!formulario.valid">
+                    <span class="material-icons">
+                        save
+                    </span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

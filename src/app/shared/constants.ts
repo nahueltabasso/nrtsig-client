@@ -10,6 +10,7 @@ export const MAX_DNI = 100000000;
 export const MAX_LENGTH_CUIT = 11;
 export const MAX_LENGTH_DNI = 8;
 export const MAX_LENGTH_NAME_LASTNAME = 30;
+export const MAX_LENGTH_ANIOPLAN = 4;
 
 // LABEL PAGINADOR
 export const LABEL_PAGINADOR = 'Registro por pagina';

@@ -2,6 +2,8 @@
     <mat-card-header>
         <mat-card-title>
             <!-- TITULO DEL FORMULARIO -->
+            <h1>FORMULARIO CARRERA</h1>
+            <hr>
         </mat-card-title>
         <hr>
     </mat-card-header>
@@ -191,7 +193,7 @@
                     <ng-container matColumnDef="acciones">
                         <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                            <button mat-mini-fab color="primary" (click)="cerrarPlan(row)">
+                            <button mat-mini-fab color="primary" (click)="cerrarPlan(row)" title="Cerrar Plan"> 
                                 <span class="material-icons">
                                     remove_circle_outline
                                 </span>

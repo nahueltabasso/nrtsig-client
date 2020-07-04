@@ -45,3 +45,11 @@ export class PlanCarrera {
     alumnosInscriptos: Alumno[]; 
 }
 
+export class PlanCarreraFiltrosDTO {
+    anioPlanDesde: number;
+    anioPlanHasta: number;
+    carrera: Carrera;
+    dpto: Departamento;
+    tipoCarrera: TipoCarrera;
+}
+

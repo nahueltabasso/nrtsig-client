@@ -6,7 +6,8 @@ import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.co
 import { AlumnoEditComponent } from './components/alumno/alumno-edit/alumno-edit.component';
 import { CarreraAddComponent } from './components/carrera/carrera-add/carrera-add.component';
 import { CarreraEditComponent } from './components/carrera/carrera-edit/carrera-edit.component';
-
+import { PlanCarreraComponent } from './components/plan-carrera/plan-carrera.component';
+import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera-form/plan-carrera-form.component';
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
@@ -14,7 +15,9 @@ const routes: Routes = [
   { path: 'alumnos/edit/:id', component: AlumnoEditComponent },
   { path: 'carreras', component: CarreraComponent },
   { path: 'carreras/add', component: CarreraAddComponent },
-  { path: 'carreras/edit/:id', component: CarreraEditComponent }
+  { path: 'carreras/edit/:id', component: CarreraEditComponent },
+  { path: 'plancarrera', component: PlanCarreraComponent },
+  { path: 'plancarrera/add', component: PlanCarreraFormComponent }
 ];
 
 @NgModule({

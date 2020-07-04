@@ -55,4 +55,12 @@ export class CarreraService {
   desactivarCarrera(idCarrera: number): Observable<void> {
     return this.http.get<void>(this.endPointBase + '/' + idCarrera + '/desactivar-carrera');
   }
+
+  getCarreraOrdenadasPorNombre(): Observable<Carrera[]> {
+    return this.http.get<Carrera[]>(this.endPointBase + '/listar-carreras-ordenadas');
+  }
+
+  getCarrerasByDepartamento(idDepartamento: number): Observable<Carrera[]> {
+    return this.http.get<Carrera[]>(this.endPointBase + '/listar-carrera-por-departamento/' + idDepartamento);
+  }
 }

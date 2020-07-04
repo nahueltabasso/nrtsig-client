@@ -38,6 +38,7 @@ import { DatePipe } from '@angular/common';
 import { AsignarPlancarreraComponent } from './components/carrera/asignar-plancarrera/asignar-plancarrera.component';
 import { PlanCarreraComponent } from './components/plan-carrera/plan-carrera.component';
 import { PlanCarreraViewComponent } from './components/plan-carrera/plan-carrera-view/plan-carrera-view.component';
+import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera-form/plan-carrera-form.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { PlanCarreraViewComponent } from './components/plan-carrera/plan-carrera
     CarreraEditComponent,
     AsignarPlancarreraComponent,
     PlanCarreraComponent,
-    PlanCarreraViewComponent
+    PlanCarreraViewComponent,
+    PlanCarreraFormComponent
   ],
   entryComponents: [
     AlumnoViewComponent,

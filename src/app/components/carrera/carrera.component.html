@@ -163,20 +163,20 @@
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let carrera">
-                        <button mat-mini-fab color="primary" (click)="verCarrera(carrera)">
+                        <button mat-mini-fab color="primary" (click)="verCarrera(carrera)" title="Ver">
                             <span class="material-icons">
                                 visibility
                                 </span>
                         </button>
                         
-                        <button mat-mini-fab color="primary" [routerLink]="['/carreras/edit', carrera.id]">
+                        <button mat-mini-fab color="primary" [routerLink]="['/carreras/edit', carrera.id]" title="Editar">
                             <span class="material-icons">
                                 edit
                             </span>                            
                         </button>
     
                         <button mat-mini-fab color="primary" (click)="eliminarCarrera(carrera)"
-                                             [disabled]="carrera.planesCarrera.length > 0">
+                                             [disabled]="carrera.planesCarrera.length > 0" title="Eliminar">
                             <span class="material-icons">
                                 delete_forever
                             </span>
@@ -200,7 +200,9 @@
                 class="float-left mx-2">
             </mat-paginator>
     
-            <button mat-fab color="primary" class="button-add" [routerLink]="['/carreras/add']" style="margin-left: 950px; margin-top: -30px;">
+            <button mat-fab color="primary" class="button-add" 
+                            [routerLink]="['/carreras/add']" style="margin-left: 950px; margin-top: -30px;"
+                            title="Agregar">
                 <span class="material-icons">
                     library_add
                 </span>

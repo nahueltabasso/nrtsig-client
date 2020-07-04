@@ -36,7 +36,6 @@ export class CarreraComponent implements OnInit {
     this.loading = true;
     this.carreraService.listar().subscribe(data => {
       this.carreras = data;
-      console.log(this.carreras)
       this.iniciarPaginador();
       this.loading = false;
     });
@@ -102,7 +101,6 @@ export class CarreraComponent implements OnInit {
   }
   
   public search() {
-    console.log(this.carreraFiltrosDTO);
     this.loading = true;
     this.carreraService.search(this.carreraFiltrosDTO).subscribe(data => {
       this.carreras = data;

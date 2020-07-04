@@ -1,1 +1,223 @@
-<p>plan-carrera works!</p>
+<div class="container">
+    <mat-card class="m-4">
+        <mat-card-header>
+            <div class="card-title">
+                <h1 class="animated fadeIn" style="margin-left: -25px;">FILTROS</h1>
+            </div>
+        </mat-card-header>
+        <div class="card-body">
+            <form class="form-group" [formGroup]="formulario">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Anio Plan Desde</mat-label>
+                            <input matInput name="anioPlanDesde" id="anioPlanDesde" type="text"
+                                            formControlName="anioPlanDesde" 
+                                            (input)="onChangeAnioPlanDesde()">
+                            <mat-error *ngIf="formulario.get('anioPlanDesde').hasError('pattern')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo Numeros</label>
+                            </mat-error> 
+                            <mat-error *ngIf="formulario.get('anioPlanDesde').hasError('maxLength')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Año invalido. Maximo 4 numeros</label>
+                            </mat-error> 
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Anio Plan Hasta</mat-label>
+                            <input matInput name="anioPlanHasta" id="anioPlanHasta" type="text"
+                                            formControlName="anioPlanHasta" 
+                                            (input)="onChangeAnioPlanHasta()">
+                            <mat-error *ngIf="formulario.get('anioPlanHasta').hasError('pattern')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                            </mat-error> 
+                            <mat-error *ngIf="formulario.get('anioPlanHasta').hasError('maxLength')">
+                                <label style="font-weight: normal; font-size: 12px"  class="error">Año invalido. Maximo 4 numeros</label>
+                            </mat-error> 
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <mat-form-field>
+                            <mat-label>Carrera</mat-label>
+                            <mat-select name="carrera" id="carrera" 
+                                        formControlName="carrera"
+                                        (selectionChange)="seleccionarCarrera($event.value)">
+                                <mat-option *ngFor="let carrera of comboCarreras" [value]="carrera">{{ carrera.nombre }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <mat-form-field>
+                            <mat-label>Tipo Carrera</mat-label>
+                            <mat-select name="tipoCarrera" id="tipoCarrera" 
+                                        formControlName="tipoCarrera"
+                                        (selectionChange)="seleccionarTipoCarrera($event.value)">
+                                <mat-option *ngFor="let tipo of comboTipoCarrera" [value]="tipo">{{ tipo.tipoCarrera }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <mat-form-field>
+                            <mat-label>Departamentos</mat-label>
+                            <mat-select name="dpto" id="dpto" 
+                                        formControlName="dpto"
+                                        (selectionChange)="seleccionarDepartamento($event.value)">
+                                <mat-option *ngFor="let d of comboDepartamento" [value]="d">{{ d.denominacion }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row clearfix">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 20px;">
+                    <button mat-raised-button class="btn m-1 float-right" 
+                                              type="submit" color="primary" (click)="search()"
+                                              [disabled]="!formulario.valid">
+                        BUSCAR
+                    </button>
+                    <button mat-raised-button class="btn m-1 float-right" 
+                                              type="button"  (click)="cleanFilter()">
+                        LIMPIAR
+                    </button>
+                </div>
+            </div>
+        </div> 
+    </mat-card>
+</div>
+
+<div class="container">
+    <mat-card class="m-4">
+        <mat-card-header >
+            <mat-card-title >
+                <h1 class="animated fadeIn">
+                    {{ titulo | uppercase }}
+                </h1>
+            </mat-card-title>
+            <hr>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- CARGANDO DATOS -->
+            <div *ngIf="loading" class="alert alert-info text-center mt-3 animated fadeIn faster">
+                <h4 class="alert-heading">Cargando</h4>
+                <p>
+                    <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+                </p>
+                <p class="mb-0">
+                    Espere por favor...
+                </p>
+            </div>
+    
+            <!-- MENSAJE NO HAY DATOS -->
+            <div *ngIf="!loading && planCarreraList.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                <h4 class="alert-heading">No hay registros</h4>
+                <p>
+                    <i class="fa fa-exclamation fa-2x"></i>
+                </p>
+            </div>
+    
+            <table mat-table 
+                    *ngIf="!loading && planCarreraList.length > 0"
+                    [dataSource]="dataSource" class="mat-elevation-z8 m-3 animated fadeIn" style="width: 100%; margin: 0rem!important;">
+    
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="anioPlan">
+                    <th mat-header-cell *matHeaderCellDef>Anio Plan</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.anioPlan }} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="resolucion">
+                    <th mat-header-cell *matHeaderCellDef>Resolucion</th>
+                    <td mat-cell *matCellDef="let row">
+                         {{ row.resolucion }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createAt">
+                    <th mat-header-cell *matHeaderCellDef>Fecha Creacion</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.createAt | date: 'dd/MM/yyyy' }} años </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="fechaCierre">
+                    <th mat-header-cell *matHeaderCellDef>Fecha Cierre</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.fechaCierre | date: 'dd/MM/yyyy' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="carrera">
+                    <th mat-header-cell *matHeaderCellDef>Carrera</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.carrera.nombreCorto }} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="dpto">
+                    <th mat-header-cell *matHeaderCellDef>Departamento</th>
+                    <td mat-cell *matCellDef="let row"> {{ row.departamento.denominacion }} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-mini-fab color="primary" (click)="verPlanCarrera(row)" title="Ver">
+                            <span class="material-icons">
+                                visibility
+                                </span>
+                        </button>
+                        
+                        <button mat-mini-fab color="primary" [routerLink]="['/carreras/edit', row.id]" title="Editar">
+                            <span class="material-icons">
+                                edit
+                            </span>                            
+                        </button>
+    
+                        <button mat-mini-fab color="primary" (click)="eliminarPlan(row)" title="Eliminar">
+                            <span class="material-icons">
+                                delete_forever
+                            </span>
+                        </button>
+
+                        <button mat-mini-fab color="primary" (click)="cerrarPlan(row)" title="Cerrar Plan">
+                            <span class="material-icons">
+                                remove_circle_outline
+                            </span>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+            </table>
+    
+            <!--
+            <button mat-raised-button color="primary" class="m-4" (click)="asignar()"
+                [disabled]="dataSource.length === 0">
+                Asignar
+            </button>
+            -->
+    
+            <mat-paginator class="my-2" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+                class="float-left mx-2">
+            </mat-paginator>
+    
+            <button mat-fab color="primary" class="button-add" 
+                            title="Agregar"
+                            [routerLink]="['/plancarrera/add']" style="margin-left: 950px; margin-top: -30px; position: relative;">
+                <span class="material-icons">
+                    library_add
+                </span>
+            </button>
+    
+        </mat-card-content>
+    </mat-card>
+</div>
