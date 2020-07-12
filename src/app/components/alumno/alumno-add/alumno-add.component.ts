@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AlumnoService } from 'src/app/services/alumno.service';
 import { Alumno, Pais, Provincia, Ciudad, Domicilio } from 'src/app/models/alumno.models';
@@ -17,16 +17,22 @@ export class AlumnoAddComponent implements OnInit {
 
   titulo: string;
   formulario: FormGroup;
-  alumno: Alumno = new Alumno();
   error: any;
   comboPaises: Pais[] = [];
   comboProvincias: Provincia[] = [];
   comboCiudades: Ciudad[] = []; 
+  // USAMOS INPUT PARA RECIBIR VALORES DEL COMPONENTE PADRE (EN ESTE CASO DEL COMPONENTE INSCRIPCION-CARRERA-ADD.COMPONENT)
+  @Input() alumno: Alumno = new Alumno();
+  @Input() flagIncsripcionCarrera: boolean;
+  // USAMOS OUTPUT PARA DEVOLVER VALORES HACIA EL COMPONENTE PADRE
+  @Output() devolverAlumno: EventEmitter<number>;
 
   constructor(private alumnoService: AlumnoService,
               private fb: FormBuilder,
               private router: Router,
-              private datePipe: DatePipe) { }
+              private datePipe: DatePipe) {
+    this.devolverAlumno = new EventEmitter();
+  }
 
   ngOnInit(): void {
     this.titulo = 'FORMULARIO NUEVO ALUMNO';
@@ -181,14 +187,21 @@ export class AlumnoAddComponent implements OnInit {
     return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
-  public save(): void {
-    this.alumnoService.crear(this.alumno).subscribe(data => {
-      Swal.fire('Nuevo:', `Alumno ${data.nombre}, ${data.apellido} agregado con exito!`, 'success');
-      this.router.navigate(['/alumnos']);
-    }, err => {
-      if (err.status == 400) {
-        this.error = err.error;
-      }
-    });
+  public save(event): void {
+    if (!this.flagIncsripcionCarrera) {
+      this.alumnoService.crear(this.alumno).subscribe(data => {
+        Swal.fire('Nuevo:', `Alumno ${data.nombre}, ${data.apellido} agregado con exito!`, 'success');
+        this.router.navigate(['/alumnos']);
+      }, err => {
+        if (err.status == 400) {
+          this.error = err.error;
+        }
+      });  
+    } else {
+      this.alumnoService.crear(this.alumno).subscribe(data => {
+        this.alumno = data;
+        this.devolverAlumno.emit(this.alumno.id);
+      });
+    }
   }
 }

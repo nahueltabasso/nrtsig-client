@@ -36,4 +36,16 @@ export class InscripcionCarreraService {
   eliminarInscripcion(id: number): Observable<void> {
     return this.http.delete<void>(this.endPointBase + '/' + id);
   }
+
+  registrarInscripcion(inscripcion: InscripcionCarrera): Observable<InscripcionCarrera> {
+    return this.http.post<InscripcionCarrera>(this.endPointBase, inscripcion);
+  }
+
+  confirmarInscripcion(id: number): Observable<void> {
+    return this.http.put<void>(this.endPointBase + '/confirmar-inscripcion/' + id, null);
+  }
+
+  denegarInscripcion(id: number): Observable<void> {
+    return this.http.put<void>(this.endPointBase + '/denegarInscripcion/' + id, null);
+  }
 }

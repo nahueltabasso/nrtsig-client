@@ -63,4 +63,8 @@ export class CarreraService {
   getCarrerasByDepartamento(idDepartamento: number): Observable<Carrera[]> {
     return this.http.get<Carrera[]>(this.endPointBase + '/listar-carrera-por-departamento/' + idDepartamento);
   }
+
+  getCarrerasByTipoCarrera(idTipoCarrera: number): Observable<Carrera[]> {
+    return this.http.get<Carrera[]>(this.endPointBase + '/listar-carrera-por-tipo/' + idTipoCarrera);
+  }
 }

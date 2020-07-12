@@ -1,389 +1,141 @@
-<button mat-raised-button (click)="isOptional = !isOptional">
-  {{!isOptional ? 'Enable optional steps' : 'Disable optional steps'}}
-</button>
+<mat-card-header style="margin-top: 15px;">
+  <mat-card-title>
+      <h1 class="animated fadeIn">
+          {{ titulo | uppercase }}
+      </h1>
+      <!-- MOSTRAR CARTEL SI EL BACKEND DEVUELVE UN ERROR -->
+      <div *ngIf="errorMessage" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+          <h4 class="alert-heading">{{ errorMessage }}</h4>
+          <p>
+              <i class="fa fa-exclamation fa-2x"></i>
+          </p>
+      </div>
+  </mat-card-title>
+</mat-card-header>
+
 
 <!-- INICIO STEPPER -->
 <mat-horizontal-stepper linear #stepper>
   <!-- INICIO PRIMER STEPPER -->
   <mat-step [stepControl]="formularioAlumno">
-    <div class="form-horizontal">
-
-      <form class="form-group" [formGroup]="formularioAlumno">
-        <ng-template matStepLabel>Datos Alumno</ng-template>
-          <!-- DATOS PERSONALES -->
-          <div class="container">
-              <h2>DATOS PERSONALES</h2>
-              <hr>
-              <!-- INICIO PRIMERA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO NOMBRE -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Nombre</mat-label>
-                          <input matInput name="nombre" id="nombre" type="text"
-                                          formControlName="nombre" 
-                                          (input)="onChangeNombre()"
-                                          required>
-                          <mat-error *ngIf="formularioAlumno.get('nombre').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('nombre').hasError('pattern')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
-                          </mat-error> 
-                          <mat-error *ngIf="formularioAlumno.get('nombre').hasError('maxlenght')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Nombre demasiado largo</label>
-                          </mat-error>
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO APELLIDO -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Apellido</mat-label>
-                          <input matInput name="apellido" id="apellido" type="text"
-                                          formControlName="apellido" 
-                                          (input)="onChangeApellido()"
-                                          required>
-                          <mat-error *ngIf="formularioAlumno.get('apellido').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('apellido').hasError('pattern')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo letras</label>
-                          </mat-error>
-                      </mat-form-field>
-                  </div>
-              </div>
-              <!-- FIN PRIMERA FILA -->
-
-              <!-- INICIO SEGUNDA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO TIPO DOCUMENTO -->
-                  <div class="from-groupo col-md-4">
-                      <mat-form-field>
-                          <mat-label>Tipo Documento</mat-label>
-                          <mat-select name="tipoDocumento" id="tipoDocumento"
-                                      [placeholder]="'Tipo Documento'"
-                                      formControlName="tipoDocumento"
-                                      (selectionChange)="seleccionarTipoDocumento($event.value)"
-                                      required>
-                              <mat-option value="DU">DU</mat-option>
-                              <mat-option value="LCI">LCI</mat-option>
-                              <mat-option value="PASAPORTE">PASAPORTE</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="formularioAlumno.get('tipoDocumento').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO NUMERO DOCUMENTO -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Numero Documento</mat-label>
-                          <input matInput name="nroDocumento" id="nroDocumento" type="text"
-                                          formControlName="numeroDocumento"
-                                          (input)="onChangeNumeroDocumento()"
-                                          required>
-                          <mat-error *ngIf="formularioAlumno.get('numeroDocumento').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('numeroDocumento').hasError('min')">
-                              <label class="error">DNI no valido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('numeroDocumento').hasError('max')">
-                              <label class="error">DNI no valido</label>
-                          </mat-error> 
-                          <mat-error *ngIf="formularioAlumno.get('numeroDocumento').hasError('pattern')">
-                              <label class="error">Ingrese solo numeros</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('numeroDocumento').hasError('maxlength')">
-                              <label class="error">DNI demasiado largo</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO SEXO -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Sexo</mat-label>
-                          <mat-select name="sexo" id="sexo"
-                                      [placeholder]="'Sexo'"
-                                      formControlName="genero"
-                                      (selectionChange)="seleccionarSexo($event.value)"
-                                      required>
-                              <mat-option value="F">Femenino</mat-option>
-                              <mat-option value="M">Masculino</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="formularioAlumno.get('genero').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-              </div>
-              <!-- FIN SEGUNDA FILA -->
-
-              <!-- INICIO TERCERA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO FECHA NACIMIENTO -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <input matInput name="fechaNacimientoTxt" id="fechaNacimientoTxt" type='text' 
-                                          [placeholder]="'Fecha Nacimiento'"
-                                          formControlName="fechaNacimientoTxt"
-                                          mask="00/00/0000"
-                                          (change)="selectFechaNacimiento('input', $event)"
-                                          required>
-                          <input name="fechaPicker" id="fechaPicker" type="hidden" 
-                                [matDatepicker]="picker"
-                                formControlName="fechaPicker"
-                                (dateChange)="selectFechaNacimiento('change', $event)">
-                          <mat-datepicker-toggle matSuffix [for]="picker">
-                          </mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
-                          <mat-error *ngIf="formularioAlumno.get('fechaNacimientoTxt').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO CUIT -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>CUIT</mat-label>
-                          <input matInput name="cuit" id="cuit" type="text"
-                                          formControlName="cuit"
-                                          (input)="onChangeCUIT()">
-                          <mat-error *ngIf="formularioAlumno.get('cuit').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('cuit').hasError('maxlenght')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">CUIT demasiado largo</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('cuit').hasError('pattern')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Ingrese solo numeros</label>
-                          </mat-error> 
-                          <!-- <mat-error *ngIf="formulario.get('cuit').hasError('validatorCUIT') && !formulario.get('cuit').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">CUIT no valido. No coincide con DNI</label>                                    
-                          </mat-error> -->
-                      </mat-form-field>
-                  </div>
-              </div>
-              <!-- FINAL TERCERA FILA -->
-
-              <!-- INICIO CUARTA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO PAIS -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Pais</mat-label>
-                          <mat-select name="pais" id="pais" 
-                                      formControlName="pais"
-                                      (selectionChange)="seleccionarPais($event.value)">
-                              <mat-option *ngFor="let pais of comboPaises" [value]="pais">{{ pais.nombre }}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="formularioAlumno.get('pais').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO PROVINCIA -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Provincia</mat-label>
-                          <mat-select name="pais" id="pais"
-                                      formControlName="provincia"
-                                      (selectionChange)="seleccionarProvincia($event.value)">
-                              <mat-option *ngFor="let prov of comboProvincias" [value]="prov">{{ prov.nombre }}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="formularioAlumno.get('provincia').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO LOCALIDAD -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Localidad</mat-label>
-                          <mat-select name="ciudad" id="ciudad"
-                                      formControlName="ciudad"
-                                      (selectionChange)="seleccionarCiudad($event.value)">
-                              <mat-option *ngFor="let c of comboCiudades" [value]="c">{{ c.nombre }}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="formularioAlumno.get('ciudad').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-              </div>
-              <hr>
-              <!-- FIN CUARTA FILA-->
-          </div>
-
-          <!-- DATOS DE CONTACTO -->
-          <div class="container">
-              <h2>DATOS CONTACTO</h2>
-              <hr>
-              <!-- INICIO PRIMERA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO EMAIL -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Email</mat-label>
-                          <input matInput name="email" id="email" type="email"
-                                          formControlName="email"
-                                          placeholder="Ex. pat@example.com"
-                                          (input)="onChangeEmail()">
-                          <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                          Please enter a valid email address
-                          </mat-error> -->
-                          <!-- <mat-error *ngIf="emailFormControl.hasError('required')">
-                          Email is <strong>required</strong>
-                          </mat-error> -->
-                          <mat-error *ngIf="formularioAlumno.get('email').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error>  
-                          <mat-error *ngIf="formularioAlumno.get('email').hasError('email')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Email no valido</label>
-                          </mat-error>  
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO TELEFONO -->
-                  <div class="form-group col-md-6">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Telefono</mat-label>
-                          <span matPrefix>+1 &nbsp;</span>
-                          <input matInput name="telefono" id="telefono"
-                                          type="tel"  
-                                          placeholder="555-555-1234"
-                                          formControlName="telefono"
-                                          (input)="onChangeTelefono()">
-                          <mat-icon matSuffix>mode_edit</mat-icon>
-                          <mat-error *ngIf="formularioAlumno.get('telefono').hasError('pattern')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Ingrese solo numeros</label>
-                          </mat-error> 
-                      </mat-form-field>
-                  </div>
-              </div>
-              <hr>
-              <!-- FIN PRIMERA FILA -->
-          </div>
-
-          <!-- DATOS DE DOMICILIO -->
-          <div class="container">
-              <h2>DATOS DOMICILIO</h2>
-              <hr>
-              <!-- INICIO PRIMERA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO DIRECCION -->
-                  <div class="form-group col-md-8">
-                      <mat-form-field class="example-full-width">
-                          <mat-label>Calle</mat-label>
-                          <input matInput name="direccion" id="direccion" type="text"
-                                          formControlName="direccion"
-                                          (input)="onChangeDireccion()"
-                                          placeholder="Ex. San Francisco">
-                          <mat-error *ngIf="formularioAlumno.get('direccion').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error> 
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO NUMERO CALLE -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Numero</mat-label>
-                          <input matInput name="numeroCalle" id="numeroCalle" type="text"
-                                          formControlName="numeroCalle"
-                                          (input)="onChangeNumeroCalle()"
-                                          placeholder="Ex. San Francisco">
-                          <mat-error *ngIf="formularioAlumno.get('numeroCalle').hasError('required')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
-                          </mat-error> 
-                          <mat-error *ngIf="formularioAlumno.get('numeroCalle').hasError('pattern')">
-                              <label style="font-weight: normal; font-size: 12px"  class="error">Ingrese solo numeros</label>
-                          </mat-error> 
-                      </mat-form-field>
-                  </div>
-              </div>
-              <!-- FIN PRIMERA FILA -->
-
-              <!-- INICIO SEGUNDA FILA -->
-              <div class="form-row">
-                  <!-- CAMPO SI ES DEPARTAMENTO -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Dpto?</mat-label>
-                          <mat-select name="isDpto" id="isDpto"
-                                      formControlName="isDpto"
-                                      (selectionChange)="seleccionDpto($event.value)">
-                              <mat-option [value]="true">SI</mat-option>
-                              <mat-option [value]="false">NO</mat-option>
-                          </mat-select>
-                      </mat-form-field>
-                  </div>
-
-                  <!-- CAMPO PISO DEPARTAMENTO -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Piso</mat-label>
-                          <input matInput name="piso" id="piso" type="text"
-                                          formControlName="nroPiso"
-                                          placeholder="1"
-                                          (input)="onChangeNroPiso()">
-                      </mat-form-field>
-                      <mat-error *ngIf="formularioAlumno.get('nroPiso').hasError('pattern')">
-                          <label style="font-weight: normal; font-size: 12px"  class="error">Ingrese solo numeros</label>
-                      </mat-error> 
-                  </div>
-
-                  <!-- CAMPO NUMERO DEPARTAMENTO -->
-                  <div class="form-group col-md-4">
-                      <mat-form-field>
-                          <mat-label>Nro Dpto</mat-label>
-                          <input matInput name="departamento" id="departamento" type="text"
-                                          formControlName="nroDpto"
-                                          placeholder="1"
-                                          (input)="onChangeNroDepartamento()">
-                      </mat-form-field>
-                  </div>
-              </div>
-              <!-- FIN SEGUNDA FILA -->
-
-          </div>
-      </form>
-    </div>    
-    <div>
-      <button mat-button matStepperNext>Next</button>
-    </div>
-      
+    <ng-template matStepLabel>Datos Alumno</ng-template>
+    <app-alumno-add [alumno]="alumno" [flagIncsripcionCarrera]="flagInscripcionCarrera" (devolverAlumno)="obtenerAlumnoParaInscripcion($event)"></app-alumno-add>
   </mat-step>
   <!-- FIN PRIMER STEPPER -->
 
-
+  <!-- INICIO SEGUNDO STEPPER -->
   <mat-step [stepControl]="formularioCarrera" [optional]="isOptional">
-    <form [formGroup]="formularioCarrera">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+    <ng-template matStepLabel>Datos Carrera</ng-template>
+    <mat-card-content>
+      <h2>DATOS CARRERA</h2>
+      <hr>
+      <div class="form-horizontal">
+        <form class="form-group" [formGroup]="formularioCarrera">
+          <div class="row">
+            <!-- CAMPO TIPO CARRERA -->
+            <div class="form-group col-md-6">
+              <mat-form-field>
+                  <mat-label>Tipo Carrera</mat-label>
+                  <mat-select name="tipoCarrera" id="tipoCarrera" 
+                              formControlName="tipoCarrera"
+                              (selectionChange)="seleccionarTipoCarrera($event.value)">
+                      <mat-option *ngFor="let tipo of comboTipoCarrera" [value]="tipo.id">{{ tipo.tipoCarrera }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="formularioCarrera.get('tipoCarrera').hasError('required')">
+                      <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                  </mat-error>  
+              </mat-form-field>
+            </div>
+
+            <!-- CAMPO CARRERA -->
+            <div class="form-group col-md-6">
+              <mat-form-field>
+                  <mat-label>Carrera</mat-label>
+                  <mat-select name="carrera" id="carrera" 
+                              formControlName="carrera"
+                              (selectionChange)="seleccionarCarrera($event.value)">
+                      <mat-option *ngFor="let carrera of comboCarrera" [value]="carrera.id">{{ carrera.nombre }}</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="formularioCarrera.get('carrera').hasError('required')">
+                      <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                  </mat-error>  
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- CAMPO FECHA INSCRIPCION -->
+            <div class="form-group col-md-4">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Fecha Inscripcion</mat-label>
+                  <input matInput name="fechaInscripcion" id="fechaInscripcion" type="text"
+                                  formControlName="fechaInscripcion">
+              </mat-form-field>
+            </div>
+
+            <!-- CAMPO ANIO PLAN -->
+            <div class="form-group col-md-4">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Año Plan</mat-label>
+                  <input matInput name="anioPlan" id="anioPlan" type="text"
+                                  formControlName="anioPlan">
+              </mat-form-field>
+            </div>
+
+            <!-- CAMPO RESOLUCION -->
+            <div class="form-group col-md-4">
+              <mat-form-field class="example-full-width">
+                  <mat-label>Resolucion</mat-label>
+                  <input matInput name="resolucion" id="resolucion" type="text"
+                                  formControlName="resolucion">
+              </mat-form-field>
+            </div>
+          </div>
+        </form>
+        <div class="row clearfix" style="padding-left: 1075px; margin-top: -15px;">
+          <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+              <button mat-raised-button matStepperNext 
+                                        class="btn mx-2 float-right" 
+                                        type="submit" color="primary"
+                                        [disabled]="!formularioCarrera.valid"
+                                        (click)="verInfoAlMomento()">
+                  <span class="material-icons">
+                      save
+                  </span>
+                  Siguiente
+              </button>
+          </div>
+        </div>  
       </div>
-    </form>
+    </mat-card-content>
   </mat-step>
+  <!-- FIN SEGUNDO STEPPER -->
+
+  <!-- INICIO TERCER STEPPER -->
   <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
+    <ng-template matStepLabel>Fin</ng-template>
+    <!-- MENSAJE ACLARATORIO -->
+    <div class="alert alert-success text-center mt-3 animated fadeIn faster">
+      <h4 class="alert-heading">Ya haz terminado! Para registrar la inscripcion aprieta en Registrar Inscripcion</h4>
+      <p>
+          <i class="fa fa-exclamation fa-2x"></i>
+      </p>
+    </div>    
+    <div class="row clearfix" style="padding-left: 1070px; margin-top: 10px;">
+      <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+          <button mat-raised-button matStepperNext 
+                                    class="btn mx-2 float-right" 
+                                    type="submit" color="primary"
+                                    [disabled]="!formularioCarrera.valid"
+                                    (click)="registrarInscripcion()">
+              <span class="material-icons">
+                  save
+              </span>
+              Registrar Inscripcion
+          </button>
+      </div>
+    </div>  
   </mat-step>
+  <!-- FIN TERCER STEPPER -->
 </mat-horizontal-stepper>
+<!-- FIN STEPPER -->

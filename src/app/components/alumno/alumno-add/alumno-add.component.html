@@ -1,5 +1,5 @@
 <mat-card class="m-4 container-fluid">
-    <mat-card-header>
+    <mat-card-header *ngIf="!flagIncsripcionCarrera">
         <mat-card-title>
             <h1 class="animated fadeIn">
                 {{ titulo | uppercase }}
@@ -368,21 +368,40 @@
 
         <div class="row clearfix">
             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
-                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/alumnos']">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/alumnos']" *ngIf="!flagIncsripcionCarrera">
                     <span class="material-icons">
                         arrow_back
                     </span>
                     Regresar
                 </button>
+
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/inscripcioncarrera']" *ngIf="flagIncsripcionCarrera">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>                
             </div>
+            
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
-                <button mat-raised-button class="btn mx-2 float-right" 
-                                          type="submit" color="primary" (click)="save()"
+                <button mat-raised-button *ngIf="!flagIncsripcionCarrera"
+                                          class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="save($event)"
                                           [disabled]="!formulario.valid">
                     <span class="material-icons">
                         save
                     </span>
                     Guardar
+                </button>
+
+                <button mat-raised-button matStepperNext *ngIf="flagIncsripcionCarrera"
+                                          class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="save($event)"
+                                          [disabled]="!formulario.valid">
+                    <span class="material-icons">
+                        save
+                    </span>
+                    Siguiente
                 </button>
             </div>
         </div>

@@ -291,14 +291,16 @@
 
                         
                         <button mat-mini-fab color="primary" title="Confirmar Inscripcion"
-                                             [disabled]="row.estadoInscripcion.codigo === 'C'">
+                                             [disabled]="row.estadoInscripcion.codigo === 'C'" 
+                                             (click)="confirmarInscripcion(row.id)">
                             <span class="material-icons">
                                 copyright
                             </span>
                         </button>
 
                         <button mat-mini-fab color="primary" title="Rechazar Inscripcion"
-                                             [disabled]="row.estadoInscripcion.codigo === 'C' || row.estadoInscripcion.codigo === 'NA'">
+                                             [disabled]="row.estadoInscripcion.codigo === 'C' || row.estadoInscripcion.codigo === 'NA'"
+                                             (click)="denegarInscripcion(row.id)">
                             <span class="material-icons">
                                 remove_circle_outline
                             </span>

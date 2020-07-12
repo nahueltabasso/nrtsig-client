@@ -253,4 +253,40 @@ export class InscripcionCarreraComponent implements OnInit {
     });
   }
 
+  confirmarInscripcion(id: number) {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Seguro que desea confirmar la Inscripcion numero ${id}`,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Si, Confirmar!'
+    }).then((result) => {
+      if (result.value) {
+        this.inscripcionCarreraService.confirmarInscripcion(id).subscribe(() => {
+          this.ngOnInit();
+          Swal.fire('Confirmada', 'Inscripcion confirmada con exito!', 'success');
+        });
+      }
+    });
+  }
+
+  denegarInscripcion(id: number) {
+    Swal.fire({
+      title: 'Estas Seguro?',
+      text: `Seguro que desea denegar la Inscripcion numero ${id}`,
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Si, Rechazar!'
+    }).then((result) => {
+      if (result.value) {
+        this.inscripcionCarreraService.confirmarInscripcion(id).subscribe(() => {
+          this.ngOnInit();
+          Swal.fire('Confirmada', 'Inscripcion rechazada con exito!', 'success');
+        });
+      }
+    });
+  }
+
 }
