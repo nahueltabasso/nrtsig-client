@@ -53,3 +53,10 @@ export class PlanCarreraFiltrosDTO {
     tipoCarrera: TipoCarrera;
 }
 
+export class EstadoCarrera {
+    id: number;
+    codigo: string;
+    descripcion: string;
+    createAt: Date;
+}
+

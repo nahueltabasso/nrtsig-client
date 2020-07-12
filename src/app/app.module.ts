@@ -8,12 +8,6 @@ import { AlumnoComponent } from './components/alumno/alumno.component';
 import { CarreraComponent } from './components/carrera/carrera.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from './layout/layout.module';
-import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
-import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
-import { AlumnoEditComponent } from './components/alumno/alumno-edit/alumno-edit.component';
-import { CarreraViewComponent } from './components/carrera/carrera-view/carrera-view.component';
-import { CarreraAddComponent } from './components/carrera/carrera-add/carrera-add.component';
-import { CarreraEditComponent } from './components/carrera/carrera-edit/carrera-edit.component';
 
 // IMPORTS DE ANGULAR MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,13 +26,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatIconModule } from '@angular/material/icon';
+import { MatStepperModule } from '@angular/material/stepper';
 
 // IMPORTS DE PIPES
 import { DatePipe } from '@angular/common';
+
+// IMPORTS DE COMPONENTES
+import { AlumnoViewComponent } from './components/alumno/alumno-view/alumno-view.component';
+import { AlumnoAddComponent } from './components/alumno/alumno-add/alumno-add.component';
+import { AlumnoEditComponent } from './components/alumno/alumno-edit/alumno-edit.component';
+import { CarreraViewComponent } from './components/carrera/carrera-view/carrera-view.component';
+import { CarreraAddComponent } from './components/carrera/carrera-add/carrera-add.component';
+import { CarreraEditComponent } from './components/carrera/carrera-edit/carrera-edit.component';
 import { AsignarPlancarreraComponent } from './components/carrera/asignar-plancarrera/asignar-plancarrera.component';
 import { PlanCarreraComponent } from './components/plan-carrera/plan-carrera.component';
 import { PlanCarreraViewComponent } from './components/plan-carrera/plan-carrera-view/plan-carrera-view.component';
 import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera-form/plan-carrera-form.component';
+import { InscripcionCarreraComponent } from './components/inscripcion-carrera/inscripcion-carrera.component';
+import { InscripcionCarreraAddComponent } from './components/inscripcion-carrera/inscripcion-carrera-add/inscripcion-carrera-add.component';
+import { InscripcionCarreraViewComponent } from './components/inscripcion-carrera/inscripcion-carrera-view/inscripcion-carrera-view.component';
+import { InscripcionCarreraEditComponent } from './components/inscripcion-carrera/inscripcion-carrera-edit/inscripcion-carrera-edit.component';
 
 
 @NgModule({
@@ -55,12 +62,18 @@ import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera
     AsignarPlancarreraComponent,
     PlanCarreraComponent,
     PlanCarreraViewComponent,
-    PlanCarreraFormComponent
+    PlanCarreraFormComponent,
+    InscripcionCarreraComponent,
+    InscripcionCarreraAddComponent,
+    InscripcionCarreraViewComponent,
+    InscripcionCarreraEditComponent
   ],
   entryComponents: [
     AlumnoViewComponent,
     CarreraViewComponent,
-    AsignarPlancarreraComponent
+    AsignarPlancarreraComponent,
+    PlanCarreraViewComponent,
+    InscripcionCarreraViewComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +97,8 @@ import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera
     MatSelectModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

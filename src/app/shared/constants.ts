@@ -17,3 +17,7 @@ export const LABEL_PAGINADOR = 'Registro por pagina';
 
 // MENSAJE DE ERROR
 export const ERROR_MESSAGE = 'Ocurrio un error. No se pudo guardar en la Base de Datos';
+
+// VALORES MINIMOS Y MAXIMOS
+export const MIN_ASIGNATURAS = 0;
+export const MAX_ASIGNATURAS = 50;

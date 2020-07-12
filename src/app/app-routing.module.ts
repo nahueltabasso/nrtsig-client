@@ -8,6 +8,9 @@ import { CarreraAddComponent } from './components/carrera/carrera-add/carrera-ad
 import { CarreraEditComponent } from './components/carrera/carrera-edit/carrera-edit.component';
 import { PlanCarreraComponent } from './components/plan-carrera/plan-carrera.component';
 import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera-form/plan-carrera-form.component';
+import { InscripcionCarreraComponent } from './components/inscripcion-carrera/inscripcion-carrera.component';
+import { InscripcionCarreraAddComponent } from './components/inscripcion-carrera/inscripcion-carrera-add/inscripcion-carrera-add.component';
+import { InscripcionCarreraEditComponent } from './components/inscripcion-carrera/inscripcion-carrera-edit/inscripcion-carrera-edit.component';
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
@@ -17,7 +20,10 @@ const routes: Routes = [
   { path: 'carreras/add', component: CarreraAddComponent },
   { path: 'carreras/edit/:id', component: CarreraEditComponent },
   { path: 'plancarrera', component: PlanCarreraComponent },
-  { path: 'plancarrera/add', component: PlanCarreraFormComponent }
+  { path: 'plancarrera/add', component: PlanCarreraFormComponent },
+  { path: 'inscripcioncarrera', component: InscripcionCarreraComponent },
+  { path: 'inscripcioncarrera/add', component: InscripcionCarreraAddComponent },
+  { path: 'inscripcioncarrera/edit/:id', component: InscripcionCarreraEditComponent },
 ];
 
 @NgModule({
