@@ -12,15 +12,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#" routerLink="/alumnos" routerLinkActive="active">Alumnos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" routerLink="/carreras" routerLinkActive="active">Carrera</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Alumnos
@@ -28,6 +19,39 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#" routerLink="/alumnos">Alumnos</a>
             <a class="dropdown-item" href="#" routerLink="/alumnos/add">Agregar Alumno</a>
+            <a class="dropdown-item" href="#">Reportes</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Carreras
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" routerLink="/carreras">Carrera</a>
+            <a class="dropdown-item" href="#" routerLink="/carreras/add">Agregar Alumno</a>
+            <a class="dropdown-item" href="#">Reportes</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Plan Carrera
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" routerLink="/plancarrera">Planes</a>
+            <a class="dropdown-item" href="#" routerLink="/plancarrera/add">Agregar Plan</a>
+            <a class="dropdown-item" href="#">Reportes</a>
+          </div>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Inscripciones
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" routerLink="/inscripcioncarrera">Lista Inscripciones</a>
+            <a class="dropdown-item" href="#" routerLink="/inscripcioncarrera/add">Nueva Inscripcion</a>
             <a class="dropdown-item" href="#">Reportes</a>
           </div>
         </li>
