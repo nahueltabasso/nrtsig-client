@@ -21,9 +21,11 @@ export class AlumnoAddComponent implements OnInit {
   comboPaises: Pais[] = [];
   comboProvincias: Provincia[] = [];
   comboCiudades: Ciudad[] = []; 
+  flagBotonStepper: boolean = false;
   // USAMOS INPUT PARA RECIBIR VALORES DEL COMPONENTE PADRE (EN ESTE CASO DEL COMPONENTE INSCRIPCION-CARRERA-ADD.COMPONENT)
   @Input() alumno: Alumno = new Alumno();
   @Input() flagIncsripcionCarrera: boolean;
+  @Input() idAlumno: number;
   // USAMOS OUTPUT PARA DEVOLVER VALORES HACIA EL COMPONENTE PADRE
   @Output() devolverAlumno: EventEmitter<number>;
 
@@ -35,19 +37,29 @@ export class AlumnoAddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.titulo = 'FORMULARIO NUEVO ALUMNO';
-    this.alumno.domicilio = new Domicilio();
     this.createForm();
-    this.alumnoService.obtenerUltimoLegajo().subscribe(data => {
-      this.alumno.legajo = data + 1;
-    })
-    this.alumnoService.listarPaises().subscribe(paises => {
-      this.comboPaises = paises;
-    });
-    this.formulario.controls['provincia'].disable();
-    this.formulario.controls['ciudad'].disable();
-    this.formulario.controls['nroPiso'].disable();
-    this.formulario.controls['nroDpto'].disable();
+    // Validamos si el idAlumno que recibimos de forma externa es null
+    if (this.idAlumno === undefined){
+      // Significa que la informacion que recibimos de forma externa es null
+      this.titulo = 'FORMULARIO NUEVO ALUMNO';
+      this.alumno.domicilio = new Domicilio();
+      this.alumnoService.obtenerUltimoLegajo().subscribe(data => {
+        this.alumno.legajo = data + 1;
+      })
+      this.alumnoService.listarPaises().subscribe(paises => {
+        this.comboPaises = paises;
+      });
+      this.deshabilitarCampos();
+    } else {
+      // Implica que recibimos un idAlumno desde otro componente externo
+      // En este caso es para la inscripcion de un alumno ya registrado a una carrera
+      this.alumnoService.getById(this.idAlumno).subscribe(alumno => {
+        this.alumno = alumno;
+        this.loadDataAlumno();
+        this.flagBotonStepper = true;
+      });
+    }
+
   }
 
   public createForm() {
@@ -71,6 +83,62 @@ export class AlumnoAddComponent implements OnInit {
       provincia: [null, Validators.required],
       ciudad: [null, Validators.required]
     });
+  }
+
+  public loadDataAlumno() {
+    // DATOS PERSONALES
+    this.formulario.controls['nombre'].setValue(this.alumno.nombre);
+    this.formulario.controls['nombre'].disable();
+    this.formulario.controls['apellido'].setValue(this.alumno.apellido);
+    this.formulario.controls['apellido'].disable();
+    this.formulario.controls['tipoDocumento'].setValue(this.alumno.tipoDocumento);
+    this.formulario.controls['tipoDocumento'].disable();
+    this.formulario.controls['numeroDocumento'].setValue(this.alumno.numeroDocumento);
+    this.formulario.controls['numeroDocumento'].disable();
+    this.formulario.controls['fechaNacimientoTxt'].setValue(this.transformDate(this.alumno.fechaNacimiento));
+    this.formulario.controls['fechaNacimientoTxt'].disable();
+    if (this.alumno.sexo === 'M') {
+      this.formulario.controls['genero'].setValue('Hombre');
+      this.formulario.controls['genero'].disable();  
+    } else {
+      this.formulario.controls['genero'].setValue('Mujer');
+      this.formulario.controls['genero'].disable();  
+    }
+    this.formulario.controls['cuit'].setValue(this.alumno.cuit);
+    this.formulario.controls['cuit'].disable();
+
+    // DATOS DE DOMICILIO
+    this.formulario.controls['direccion'].setValue(this.alumno.domicilio.direccion);
+    this.formulario.controls['direccion'].disable();
+    this.formulario.controls['numeroCalle'].setValue(this.alumno.domicilio.numero);
+    if (this.alumno.domicilio.nroPiso !== null && this.alumno.domicilio.nroDepartamento !== null) {
+      this.formulario.controls['nroPiso'].setValue(this.alumno.domicilio.nroPiso);
+      this.formulario.controls['nroPiso'].disable();
+      this.formulario.controls['nroDpto'].setValue(this.alumno.domicilio.nroDepartamento);
+      this.formulario.controls['nroDpto'].disable();
+    } else {
+      this.formulario.controls['nroPiso'].setValue('---');
+      this.formulario.controls['nroPiso'].disable();
+      this.formulario.controls['nroDpto'].setValue('---');
+      this.formulario.controls['nroDpto'].disable();
+    }
+    this.formulario.controls['ciudad'].setValue(this.alumno.ciudad.nombre);
+    this.formulario.controls['provincia'].setValue(this.alumno.ciudad.provincia.nombre);
+    this.formulario.controls['pais'].setValue(this.alumno.ciudad.provincia.pais.nombre);
+
+    // DATOS DE CONTACTO
+    this.formulario.controls['email'].setValue(this.alumno.email);
+    this.formulario.controls['email'].disable();
+    this.formulario.controls['telefono'].setValue(this.alumno.telefono);
+    this.formulario.controls['telefono'].disable();
+  }
+
+
+  public deshabilitarCampos() {
+    this.formulario.controls['provincia'].disable();
+    this.formulario.controls['ciudad'].disable();
+    this.formulario.controls['nroPiso'].disable();
+    this.formulario.controls['nroDpto'].disable();
   }
 
   public seleccionarTipoDocumento(event): void {
@@ -203,5 +271,9 @@ export class AlumnoAddComponent implements OnInit {
         this.devolverAlumno.emit(this.alumno.id);
       });
     }
+  }
+
+  public nextStep(event): void {
+    this.devolverAlumno.emit(this.idAlumno);
   }
 }

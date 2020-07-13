@@ -9,7 +9,7 @@ import { PlanCarrera, TipoCarrera, Carrera } from 'src/app/models/carrera.models
 import { InscripcionCarrera } from 'src/app/models/inscripcion.models';
 import { PlancarreraService } from 'src/app/services/plancarrera.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-inscripcion-carrera-add',
@@ -30,6 +30,7 @@ export class InscripcionCarreraAddComponent implements OnInit {
   comboCarrera: Carrera[] = [];
   error: boolean = false;
   errorMessage: string;
+  idAlumno: number;
 
   constructor(private fb: FormBuilder,
               private inscripcionCarreraService: InscripcionCarreraService,
@@ -37,20 +38,20 @@ export class InscripcionCarreraAddComponent implements OnInit {
               private planCarreraService: PlancarreraService,
               private alumnoService: AlumnoService,
               private datePipe: DatePipe,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.titulo = 'FORMULARIO INSCRIPCION CARRERA';
     this.createForm();
-    this.carreraService.listarTipoCarrera().subscribe(data => {
-      this.comboTipoCarrera = data;
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.idAlumno = Number (params.get('idAlumno'));
+      if (this.idAlumno === null) {
+        this.completarAndHabilitarCampos();
+      } else {
+        this.completarAndHabilitarCampos();
+      }
     });
-    this.formularioCarrera.controls['carrera'].disable();
-    this.formularioCarrera.controls['fechaInscripcion'].setValue(this.transformDate(new Date()));
-    this.formularioCarrera.controls['fechaInscripcion'].disable();
-    this.formularioCarrera.controls['resolucion'].disable();
-    this.formularioCarrera.controls['anioPlan'].disable();
-    this.inscripcion.fechaInscripcion = new Date();
   }
 
   public createForm() {
@@ -64,21 +65,41 @@ export class InscripcionCarreraAddComponent implements OnInit {
     });
   }
 
+  public completarAndHabilitarCampos() {
+    this.carreraService.listarTipoCarrera().subscribe(data => {
+      this.comboTipoCarrera = data;
+    });
+    this.formularioCarrera.controls['carrera'].disable();
+    this.formularioCarrera.controls['fechaInscripcion'].setValue(this.transformDate(new Date()));
+    this.formularioCarrera.controls['fechaInscripcion'].disable();
+    this.formularioCarrera.controls['resolucion'].disable();
+    this.formularioCarrera.controls['anioPlan'].disable();
+    this.inscripcion.fechaInscripcion = new Date();    
+  }
+
+
   public obtenerAlumnoParaInscripcion(event): void {
-    console.log(event)
     const id = event;
     this.alumnoService.getById(id).subscribe(data => {
       this.alumno = data;
       this.inscripcion.alumno = this.alumno;
+      console.log('1',this.inscripcion.alumno);
     });
   }
 
   public seleccionarTipoCarrera(event) {
     const id = event;
-    this.carreraService.getCarrerasByTipoCarrera(id).subscribe(data => {
-      this.comboCarrera = data;
-      this.formularioCarrera.controls['carrera'].enable();
-    });
+    if (this.alumno.id != null) {
+      this.carreraService.getCarrerasByTipoCarreraAndAlumno(id, this.alumno.id).subscribe(data => {
+        this.comboCarrera = data;
+        this.formularioCarrera.controls['carrera'].enable();
+      });  
+    } else {
+      this.carreraService.getCarrerasByTipoCarrera(id).subscribe(data => {
+        this.comboCarrera = data;
+        this.formularioCarrera.controls['carrera'].enable();
+      }); 
+    }
   }
 
   public seleccionarCarrera(event): void {

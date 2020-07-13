@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'inscripcioncarrera', component: InscripcionCarreraComponent },
   { path: 'inscripcioncarrera/add', component: InscripcionCarreraAddComponent },
   { path: 'inscripcioncarrera/edit/:id', component: InscripcionCarreraEditComponent },
+  { path: 'inscripcioncarrera/add/:idAlumno', component: InscripcionCarreraAddComponent }
 ];
 
 @NgModule({

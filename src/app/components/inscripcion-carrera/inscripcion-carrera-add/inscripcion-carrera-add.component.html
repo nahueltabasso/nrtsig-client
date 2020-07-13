@@ -19,7 +19,7 @@
   <!-- INICIO PRIMER STEPPER -->
   <mat-step [stepControl]="formularioAlumno">
     <ng-template matStepLabel>Datos Alumno</ng-template>
-    <app-alumno-add [alumno]="alumno" [flagIncsripcionCarrera]="flagInscripcionCarrera" (devolverAlumno)="obtenerAlumnoParaInscripcion($event)"></app-alumno-add>
+    <app-alumno-add [idAlumno]="idAlumno" [alumno]="alumno" [flagIncsripcionCarrera]="flagInscripcionCarrera" (devolverAlumno)="obtenerAlumnoParaInscripcion($event)"></app-alumno-add>
   </mat-step>
   <!-- FIN PRIMER STEPPER -->
 

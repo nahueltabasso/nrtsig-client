@@ -394,7 +394,7 @@
                     Guardar
                 </button>
 
-                <button mat-raised-button matStepperNext *ngIf="flagIncsripcionCarrera"
+                <button mat-raised-button matStepperNext *ngIf="flagIncsripcionCarrera && !flagBotonStepper"
                                           class="btn mx-2 float-right" 
                                           type="submit" color="primary" (click)="save($event)"
                                           [disabled]="!formulario.valid">
@@ -403,6 +403,17 @@
                     </span>
                     Siguiente
                 </button>
+
+                <button mat-raised-button matStepperNext *ngIf="flagBotonStepper"
+                                          class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="nextStep($event)"
+                                          [disabled]="!formulario.valid">
+                    <span class="material-icons">
+                        save
+                    </span>
+                    Siguiente
+                </button>                
+                
             </div>
         </div>
     </mat-card-content>
