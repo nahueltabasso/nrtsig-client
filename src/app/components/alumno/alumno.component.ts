@@ -58,7 +58,7 @@ export class AlumnoComponent implements OnInit {
      });
 
      modalRef.afterClosed().subscribe(data => {
-       this.ngOnInit();
+       
      });
   }
 
