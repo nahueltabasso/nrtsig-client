@@ -39,10 +39,10 @@ export class CarreraAddComponent implements OnInit {
   ngOnInit(): void {
     this.carreraService.listarTipoCarrera().subscribe(data => {
       this.comboTipoCarrera = data;
-    })
+    });
     this.carreraService.listarDepartamentos().subscribe(data1 => {
       this.comboDepartamento = data1;
-    })
+    });
     this.createForm();
   }
 

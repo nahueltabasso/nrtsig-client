@@ -46,6 +46,21 @@ import { InscripcionCarreraComponent } from './components/inscripcion-carrera/in
 import { InscripcionCarreraAddComponent } from './components/inscripcion-carrera/inscripcion-carrera-add/inscripcion-carrera-add.component';
 import { InscripcionCarreraViewComponent } from './components/inscripcion-carrera/inscripcion-carrera-view/inscripcion-carrera-view.component';
 import { InscripcionCarreraEditComponent } from './components/inscripcion-carrera/inscripcion-carrera-edit/inscripcion-carrera-edit.component';
+import { DocenteComponent } from './components/docente/docente.component';
+import { DocenteAddComponent } from './components/docente/docente-add/docente-add.component';
+import { DocenteViewComponent } from './components/docente/docente-view/docente-view.component';
+import { DocenteEditComponent } from './components/docente/docente-edit/docente-edit.component';
+import { AsignarAsignaturaComponent } from './components/docente/asignar-asignatura/asignar-asignatura.component';
+import { ComisionComponent } from './components/comision/comision.component';
+import { ComisionAddComponent } from './components/comision/comision-add/comision-add.component';
+import { ComisionViewComponent } from './components/comision/comision-view/comision-view.component';
+import { AsignaturaComponent } from './components/asignatura/asignatura.component';
+import { AsignaturaViewComponent } from './components/asignatura/asignatura-view/asignatura-view.component';
+import { AsignaturaAddComponent } from './components/asignatura/asignatura-add/asignatura-add.component';
+import { AsignaturaEditComponent } from './components/asignatura/asignatura-edit/asignatura-edit.component';
+import { InscripcionAsignaturaComponent } from './components/alumno/inscripcion-asignatura/inscripcion-asignatura.component';
+import { AsignarAulaComponent } from './components/comision/asignar-aula/asignar-aula.component';
+import { ComisionEditComponent } from './components/comision/comision-edit/comision-edit.component';
 
 
 @NgModule({
@@ -66,14 +81,30 @@ import { InscripcionCarreraEditComponent } from './components/inscripcion-carrer
     InscripcionCarreraComponent,
     InscripcionCarreraAddComponent,
     InscripcionCarreraViewComponent,
-    InscripcionCarreraEditComponent
+    InscripcionCarreraEditComponent,
+    DocenteComponent,
+    DocenteAddComponent,
+    DocenteViewComponent,
+    DocenteEditComponent,
+    AsignarAsignaturaComponent,
+    ComisionComponent,
+    ComisionAddComponent,
+    ComisionViewComponent,
+    AsignaturaComponent,
+    AsignaturaViewComponent,
+    AsignaturaAddComponent,
+    AsignaturaEditComponent,
+    InscripcionAsignaturaComponent,
+    AsignarAulaComponent,
+    ComisionEditComponent
   ],
   entryComponents: [
     AlumnoViewComponent,
     CarreraViewComponent,
     AsignarPlancarreraComponent,
     PlanCarreraViewComponent,
-    InscripcionCarreraViewComponent
+    InscripcionCarreraViewComponent,
+    ComisionViewComponent
   ],
   imports: [
     BrowserModule,

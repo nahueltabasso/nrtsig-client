@@ -60,3 +60,24 @@ export class EstadoCarrera {
     createAt: Date;
 }
 
+export class Comision {
+    id: number;
+    numeroComision: number;
+    capacidadMaxima: number;
+    capacidadActual: number;
+    createAt: Date;
+    planCarrera: PlanCarrera;
+    aulas: Aula[];
+}
+
+export class ComisionFiltrosDTO {
+    numeroComision: number;
+    carrera: Carrera;
+}
+
+export class Aula {
+    id: number;
+    numeroSalon: number;
+    createAt: Date;
+    comision: Comision;
+}

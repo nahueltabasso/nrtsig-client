@@ -11,6 +11,7 @@ import { PlanCarreraFormComponent } from './components/plan-carrera/plan-carrera
 import { InscripcionCarreraComponent } from './components/inscripcion-carrera/inscripcion-carrera.component';
 import { InscripcionCarreraAddComponent } from './components/inscripcion-carrera/inscripcion-carrera-add/inscripcion-carrera-add.component';
 import { InscripcionCarreraEditComponent } from './components/inscripcion-carrera/inscripcion-carrera-edit/inscripcion-carrera-edit.component';
+import { ComisionComponent } from './components/comision/comision.component';
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'inscripcioncarrera', component: InscripcionCarreraComponent },
   { path: 'inscripcioncarrera/add', component: InscripcionCarreraAddComponent },
   { path: 'inscripcioncarrera/edit/:id', component: InscripcionCarreraEditComponent },
-  { path: 'inscripcioncarrera/add/:idAlumno', component: InscripcionCarreraAddComponent }
+  { path: 'inscripcioncarrera/add/:idAlumno', component: InscripcionCarreraAddComponent },
+  { path: 'comisiones', component: ComisionComponent }
 ];
 
 @NgModule({

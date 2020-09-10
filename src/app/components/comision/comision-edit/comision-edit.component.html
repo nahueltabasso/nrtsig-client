@@ -1,0 +1,133 @@
+<div class="container">
+    <mat-card class="m-4">
+        <mat-card-header >
+            <mat-card-title >
+                <h1 class="animated fadeIn">
+                    {{ titulo }}
+                </h1>
+                <hr>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="form-horizontal">
+                <form class="form-group" [formGroup]="formulario">
+                    <div class="form-row">
+                        <!-- CAMPO NUMERO COMISION -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nro Comision</mat-label>
+                                <input matInput name="nombreCarrera" id="nombreCarrera" type="text"
+                                                formControlName="numeroComision">
+                            </mat-form-field>
+                        </div>
+
+    
+                        <!-- CAMPO CAPACIDAD -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Capacidad</mat-label>
+                                <input matInput name="capacidadMaxima" id="capacidadMaxima" type="text"
+                                                formControlName="capacidadMaxima" 
+                                                (input)="onChangeCapacidad()"
+                                                required>
+                            </mat-form-field>
+                        </div>
+    
+                        <!-- CAMPO CARRERA -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre Carrera</mat-label>
+                                <input matInput name="nombreCarrera" id="nombreCarrera" type="text"
+                                                formControlName="carrera">
+                            </mat-form-field>
+                        </div>
+
+    
+                        <!-- BOTON GUARDAR COMISION -->
+                        <div class="form-group col-md-1">
+                            <button mat-mini-fab color="primary"
+                                                 (click)="save()"
+                                                 [disabled]="!formulario.valid"
+                                                 title="Eliminar">
+                                <span class="material-icons">
+                                    save
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card style="margin-top:  50px;" class="mt-4">
+        <mat-card-content>
+            <h1>AULA COMISION {{ comision.numeroComision }}</h1>
+            <!-- MENSAJE NO HAY PLAN AULAS -->
+            <div *ngIf="aulaDataSource.length === 0" class="alert alert-warning text-center mt-3 animated fadeIn faster">
+                <h4 class="alert-heading">No hay aulas asignada a la comision</h4>
+                <p>
+                    <i class="fa fa-exclamation fa-2x"></i>
+                </p>
+            </div>
+
+            <mat-table *ngIf="aulaDataSource.length > 0" [dataSource]="aulaDataSource" class="mat-elevation-z8">
+                <!-- COLUMNA ID -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA ANIO PLAN -->
+                <ng-container matColumnDef="numeroSalon">
+                    <mat-header-cell *matHeaderCellDef>Nro Salon</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.numeroSalon }}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA FECHA CIERRE -->
+                <ng-container matColumnDef="fechaAlta">
+                    <mat-header-cell *matHeaderCellDef>Fecha Alta</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.createAt | date: 'dd/MM/yyyy' }}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA RESOLUCION -->
+                <ng-container matColumnDef="nroComision">
+                    <mat-header-cell *matHeaderCellDef>Comision</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ row.comision.numeroComision }}</mat-cell>
+                </ng-container>
+
+                <!-- COLUMNA ACCIONES -->
+                <ng-container matColumnDef="acciones">
+                    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button mat-mini-fab color="primary" (click)="liberarAula(row)" title="Cerrar Plan"> 
+                            <span class="material-icons">
+                                remove_circle_outline
+                            </span>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumnsAula"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsAula;"></mat-row>
+            </mat-table>
+
+            <div class="container" *ngIf="flagAsignarAulaButton">
+                <button mat-fab color="primary" class="button-add" (click)="asignarAula()" 
+                                style="margin-left: 675px;">
+                    <span class="material-icons">
+                        library_add
+                    </span>
+                </button>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div class="modal-footer">
+    <button (click)="close()" 
+            type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cerrar
+    </button> 
+</div>

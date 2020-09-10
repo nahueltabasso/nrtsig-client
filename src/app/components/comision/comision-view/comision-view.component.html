@@ -1,0 +1,75 @@
+<h1 class="animated fadeIn" style="padding-left: 25px;">
+    {{ titulo }}
+</h1>
+
+<div class="form-horizontal">
+    <div class="modal-body">
+        <form class="form-group" [formGroup]="formulario">
+            <div class="col-sm-12">
+                <div class="row animated fadeIn fast">
+                    <!-- CAMPO ID -->
+                    <div class="form-group col-md-3">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>ID Comision</mat-label>
+                            <input matInput name="id" id="id" type="text"
+                                            formControlName="id">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- CAMPO NUMERO COMISION -->
+                    <div class="form-group col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nro Comision</mat-label>
+                            <input matInput name="numeroComision" id="numeroComision" type="text"
+                                            formControlName="numeroComision">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- CAMPO CARRERA -->
+                    <div class="form-group col-md-5">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Carrera</mat-label>
+                            <input matInput name="carrera" id="carrera" type="text"
+                                            formControlName="carrera">
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+                <div class="row animated fadeIn fast">
+                    <!-- CAMPO FECHA ALTA -->
+                    <div class="form-group col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Fecha Alta</mat-label>
+                            <input matInput name="fechaAlta" id="fechaAlta" type="text"
+                                            formControlName="fechaAlta">
+                        </mat-form-field>
+                    </div>
+
+                    <!-- CAMPO CAPACIDAD MAXIMA -->
+                    <div class="form-group col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Capacidad Maxima</mat-label>
+                            <input matInput name="capacidadMax" id="capacidadMax" type="text"
+                                            formControlName="capacidadMax">
+                        </mat-form-field>
+                    </div>
+                    
+                    <!-- CAMPO CAPACIDAD ACTUAL -->
+                    <div class="form-group col-md-4">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Capacidad Actual</mat-label>
+                            <input matInput name="capacidadActual" id="capacidadActual" type="text"
+                                            formControlName="capacidadActual">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer" style="margin-top: -35px;">
+        <button (click)="close()" 
+                type="button" class="btn btn-secondary" data-dismiss="modal">
+                Cerrar
+        </button> 
+    </div>
+</div>
