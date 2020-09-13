@@ -5,6 +5,7 @@ import { Alumno } from 'src/app/models/alumno.models';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PATTERN_ONLYLETTERS, MAX_LENGTH_NAME_LASTNAME, MIN_DNI, MAX_DNI, PATTERN_ONLYNUMBER, MAX_LENGTH_CUIT, MAX_LENGTH_DNI } from 'src/app/shared/constants';
 import Swal from 'sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-alumno-edit',
@@ -21,7 +22,8 @@ export class AlumnoEditComponent implements OnInit {
   constructor(private alumnoService: AlumnoService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -66,7 +68,7 @@ export class AlumnoEditComponent implements OnInit {
   public loadData() {
     this.formulario.controls['nombre'].setValue(this.alumno.nombre);
     this.formulario.controls['apellido'].setValue(this.alumno.apellido);
-    this.formulario.controls['fechaNacimientoTxt'].setValue(this.alumno.fechaNacimiento);
+    this.formulario.controls['fechaNacimientoTxt'].setValue(this.transformDate(this.alumno.fechaNacimiento));
     this.formulario.controls['genero'].setValue(this.alumno.sexo);
     this.formulario.controls['tipoDocumento'].setValue(this.alumno.tipoDocumento);
     this.formulario.controls['numeroDocumento'].setValue(this.alumno.numeroDocumento);
@@ -148,4 +150,9 @@ export class AlumnoEditComponent implements OnInit {
       }
     });
   }
+
+  public transformDate(date): string {
+    return this.datePipe.transform(date, 'dd/MM/yyyy');
+  }
+
 }

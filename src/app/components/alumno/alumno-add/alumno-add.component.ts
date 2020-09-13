@@ -45,7 +45,7 @@ export class AlumnoAddComponent implements OnInit {
       this.alumno.domicilio = new Domicilio();
       this.alumnoService.obtenerUltimoLegajo().subscribe(data => {
         this.alumno.legajo = data + 1;
-      })
+      });
       this.alumnoService.listarPaises().subscribe(paises => {
         this.comboPaises = paises;
       });
