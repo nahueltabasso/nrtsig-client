@@ -12,6 +12,10 @@ import { InscripcionCarreraComponent } from './components/inscripcion-carrera/in
 import { InscripcionCarreraAddComponent } from './components/inscripcion-carrera/inscripcion-carrera-add/inscripcion-carrera-add.component';
 import { InscripcionCarreraEditComponent } from './components/inscripcion-carrera/inscripcion-carrera-edit/inscripcion-carrera-edit.component';
 import { ComisionComponent } from './components/comision/comision.component';
+import { DocenteComponent } from './components/docente/docente.component';
+import { DocenteViewComponent } from './components/docente/docente-view/docente-view.component';
+import { DocenteAddComponent } from './components/docente/docente-add/docente-add.component';
+import { DocenteEditComponent } from './components/docente/docente-edit/docente-edit.component';
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
@@ -26,7 +30,11 @@ const routes: Routes = [
   { path: 'inscripcioncarrera/add', component: InscripcionCarreraAddComponent },
   { path: 'inscripcioncarrera/edit/:id', component: InscripcionCarreraEditComponent },
   { path: 'inscripcioncarrera/add/:idAlumno', component: InscripcionCarreraAddComponent },
-  { path: 'comisiones', component: ComisionComponent }
+  { path: 'comisiones', component: ComisionComponent },
+  { path: 'docente', component: DocenteComponent },
+  { path: 'docente/view/:id', component: DocenteViewComponent },
+  { path: 'docente/add', component: DocenteAddComponent },
+  { path: 'docente/edit/:id', component: DocenteEditComponent }
 ];
 
 @NgModule({

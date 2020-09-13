@@ -1,0 +1,125 @@
+<mat-card class="m-4 container-fluid">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 *ngIf="!flagDocenteExist" class="animated fadeIn">
+                {{ titulo | uppercase }}
+            </h1>
+            <hr>
+
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-horizontal">
+            <!-- MOSTRAR CARTEL SI EL BACKEND DEVUELVE UN DOCENTE NULL -->
+            <div *ngIf="flagDocenteExist" class="alert alert-warning text-center mt-3 animated fadeIn faster form-horizontal">
+                <h4 class="alert-heading">El docente al que intenta ver el detalle no existe</h4>
+                <p>
+                    <i class="fa fa-exclamation fa-2x"></i>
+                </p>
+            </div>
+            <form class="form-group" [formGroup]="formulario" *ngIf="!flagDocenteExist">
+                <!-- DATOS PERSONALES -->
+                <div class="container">
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO NOMBRE -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre</mat-label>
+                                <input matInput name="nombre" id="nombre" type="text"
+                                                formControlName="nombre" >
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO APELLIDO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Apellido</mat-label>
+                                <input matInput name="apellido" id="apellido" type="text"
+                                                formControlName="apellido">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN PRIMERA FILA -->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO TIPO DOCUMENTO -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Tipo Documento</mat-label>
+                                <input matInput name="tipoDocumento" id="tipoDocumento" type="text"
+                                                formControlName="tipoDocumento">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO NUMERO DOCUMENTO -->
+                        <div class="form-group col-md-6">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Numero Documento</mat-label>
+                                <input matInput name="numeroDocumento" id="numeroDocumento" type="text"
+                                                formControlName="numeroDocumento">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO GENERO -->
+                        <div class="form-group col-md-2">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Sexo</mat-label>
+                                <input matInput name="sexo" id="sexo" type="text"
+                                                formControlName="genero">
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                    <!-- FIN SEGUNDA FILA -->
+
+                    <!-- INICIO TERCERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO LEGAJO -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Legajo</mat-label>
+                                <input matInput name="legajo" id="legajo" type="text"
+                                                formControlName="legajo">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO CUIT -->
+                        <div class="form-group col-md-4">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>CUIT</mat-label>
+                                <input matInput name="cuit" id="cuit" type="text"
+                                                formControlName="cuit">
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO EMAIL -->
+                        <div class="form-group col-md-5">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput name="email" id="email" type="text"
+                                                formControlName="email">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FINAL TERCERA FILA -->
+                </div>
+
+            </form>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/docente']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>                
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+

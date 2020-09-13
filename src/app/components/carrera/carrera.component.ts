@@ -115,6 +115,7 @@ export class CarreraComponent implements OnInit {
     this.formulario.controls['duracion'].setValue('');
     this.formulario.controls['tipoCarrera'].setValue(null);
     this.formulario.controls['departamento'].setValue(null);
+    this.formulario.reset();
     this.ngOnInit();
   }
 

@@ -81,3 +81,23 @@ export class Aula {
     createAt: Date;
     comision: Comision;
 }
+
+export class Docente {
+    id: number;
+    legajo: number;
+    tipoDocumento: string;
+    numeroDocumento: number;
+    nombre: string;
+    apellido: string;
+    email: string;
+    createAt: Date;
+    sexo: string;
+    cuit: string;
+}
+
+export class DocenteFiltrosDTO {
+    nombre: string;
+    departamento: Departamento;
+    carrera: Carrera;
+    asignatura: string;
+}
