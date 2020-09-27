@@ -34,7 +34,8 @@ export class ComisionViewComponent implements OnInit {
       capacidadMax: [{value: '', disabled: true}],
       capacidadActual: [{value: '', disabled: true}],
       fechaAlta: [{value: '', disabled: true}],
-      carrera: [{value: '', disabled: true}]
+      carrera: [{value: '', disabled: true}],
+      turno: [{value: '', disabled: true}]
     });
   }
 
@@ -46,6 +47,9 @@ export class ComisionViewComponent implements OnInit {
     this.formulario.controls['capacidadActual'].setValue(this.comision.capacidadActual);
     this.formulario.controls['fechaAlta'].setValue(this.transformDate(this.comision.createAt));
     this.formulario.controls['carrera'].setValue(this.comision.planCarrera.carrera.nombre);
+    if (this.comision.turnoCursado === 1) this.formulario.controls['turno'].setValue('Mañana');
+    if (this.comision.turnoCursado === 2) this.formulario.controls['turno'].setValue('Tarde');
+    if (this.comision.turnoCursado === 3) this.formulario.controls['turno'].setValue('Noche');
   }
 
   public close() {

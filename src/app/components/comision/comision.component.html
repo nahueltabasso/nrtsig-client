@@ -8,7 +8,7 @@
         <div class="card-body">
             <form class="form-group" [formGroup]="formulario">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <mat-form-field class="example-full-width">
                             <mat-label>Numero Comision</mat-label>
                             <input matInput name="numeroComision" id="numeroComision" type="text"
@@ -17,6 +17,19 @@
                             <mat-error *ngIf="formulario.get('numeroComision').hasError('pattern')">
                                 <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
                             </mat-error> 
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <mat-form-field>
+                            <mat-label>Turno</mat-label>
+                            <mat-select name="turno" id="turno" 
+                                        formControlName="turno"
+                                        (selectionChange)="seleccionarTurnoComision($event.value)">
+                                <mat-option value="1">Mañana</mat-option>
+                                <mat-option value="2">Tarde</mat-option>
+                                <mat-option value="3">Noche</mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
 
@@ -95,6 +108,11 @@
                     <td mat-cell *matCellDef="let row"> {{ row.planCarrera.carrera.nombre }} </td>
                 </ng-container>
     
+                <ng-container matColumnDef="turno">
+                    <th mat-header-cell *matHeaderCellDef>Turno</th>
+                    <td mat-cell *matCellDef="let row"> {{ mostrarTurno(row.turnoCursado) }} </td>
+                </ng-container>
+
                 <ng-container matColumnDef="createAt">
                     <th mat-header-cell *matHeaderCellDef>Fecha Alta</th>
                     <td mat-cell *matCellDef="let row"> {{ row.createAt | date: 'dd/MM/yyyy' }} </td>

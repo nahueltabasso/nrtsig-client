@@ -46,7 +46,8 @@ export class ComisionAddComponent implements OnInit {
     this.formulario = this.fb.group({
       numeroComision: ['', Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYNUMBER)])],
       capacidadMaxima: ['', Validators.compose([Validators.required, Validators.pattern(PATTERN_ONLYNUMBER)])],
-      carrera: ['', Validators.required]
+      carrera: ['', Validators.required],
+      turno: ['', Validators.required]
     });
   }
 
@@ -63,6 +64,10 @@ export class ComisionAddComponent implements OnInit {
     this.planCarreraService.obtenerPlanCarreraVigente(event.id).subscribe(data => {
       this.comision.planCarrera = data;
     });
+  }
+
+  public seleccionarTurnoComision(event) {
+    this.comision.turnoCursado = event;
   }
 
   public save() {

@@ -23,7 +23,7 @@ export class ComisionComponent implements OnInit {
   titulo: string = 'LISTADO DE COMISIONES';
   comisiones: Comision[] = [];
   dataSource: MatTableDataSource<Comision>;
-  displayedColumns: string[] = ['nroComision', 'carrera', 'capacidadMax', 'capacidadActual', 'createAt', 'acciones'];
+  displayedColumns: string[] = ['nroComision', 'carrera', 'turno', 'capacidadMax', 'capacidadActual', 'createAt', 'acciones'];
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   loading = false;
   formulario: FormGroup;
@@ -53,7 +53,8 @@ export class ComisionComponent implements OnInit {
   public createForm() {
     this.formulario = this.fb.group({
       numeroComision: ['', Validators.pattern(PATTERN_ONLYNUMBER)],
-      carrera: ['', ]
+      carrera: ['', ],
+      turno: ['', ]
     })
   }
 
@@ -71,6 +72,10 @@ export class ComisionComponent implements OnInit {
     this.comisionFiltrosDTO.carrera = event;
   }
 
+  public seleccionarTurnoComision(event) {
+    this.comisionFiltrosDTO.turnoCursado = event;
+  }
+
   public verComision(comision: Comision): void {
     const modalRef = this.dialog.open(ComisionViewComponent, {
       width: '50%',
@@ -79,6 +84,12 @@ export class ComisionComponent implements OnInit {
     modalRef.afterClosed().subscribe(data => {
       
     });
+  }
+
+  public mostrarTurno(turno: number) {
+    if (turno === 1) return 'Mañana';
+    if (turno === 2) return 'Tarde';
+    if (turno === 3) return 'Noche';
   }
 
   public search() {

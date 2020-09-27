@@ -20,7 +20,7 @@
                 <form class="form-group" [formGroup]="formulario">
                     <div class="form-row">
                         <!-- CAMPO NUMERO COMISION -->
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Nro Comision</mat-label>
                                 <input matInput name="numeroComision" id="numeroComision" type="text"
@@ -37,7 +37,7 @@
                         </div>
     
                         <!-- CAMPO CAPACIDAD -->
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <mat-form-field class="example-full-width">
                                 <mat-label>Capacidad</mat-label>
                                 <input matInput name="capacidadMaxima" id="capacidadMaxima" type="text"
@@ -52,7 +52,21 @@
                                 </mat-error>  
                             </mat-form-field>
                         </div>
-    
+
+                        <!-- CAMPO TURNO -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field>
+                                <mat-label>Turno</mat-label>
+                                <mat-select name="turno" id="turno" 
+                                            formControlName="turno"
+                                            (selectionChange)="seleccionarTurnoComision($event.value)">
+                                    <mat-option value="1">Mañana</mat-option>
+                                    <mat-option value="2">Tarde</mat-option>
+                                    <mat-option value="3">Noche</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+        
                         <!-- CAMPO CARRERA -->
                         <div class="form-group col-md-5">
                             <mat-form-field>
