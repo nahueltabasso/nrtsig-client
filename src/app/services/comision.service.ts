@@ -57,4 +57,8 @@ export class ComisionService {
   actualizarComision(comision: Comision): Observable<Comision> {
     return this.http.put<Comision>(this.endPointBase + '/' + comision.id, comision, { headers: this.cabeceras });
   }
+
+  listarComisionesByCarrera(idCarrera: number): Observable<Comision[]> {
+    return this.http.get<Comision[]>(this.endPointBase + '/listar-comisiones-carrera/' + idCarrera);
+  }
 }

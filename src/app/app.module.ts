@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatChipsModule } from '@angular/material/chips';
 
 // IMPORTS DE PIPES
 import { DatePipe } from '@angular/common';
@@ -50,7 +51,6 @@ import { DocenteComponent } from './components/docente/docente.component';
 import { DocenteAddComponent } from './components/docente/docente-add/docente-add.component';
 import { DocenteViewComponent } from './components/docente/docente-view/docente-view.component';
 import { DocenteEditComponent } from './components/docente/docente-edit/docente-edit.component';
-import { AsignarAsignaturaComponent } from './components/docente/asignar-asignatura/asignar-asignatura.component';
 import { ComisionComponent } from './components/comision/comision.component';
 import { ComisionAddComponent } from './components/comision/comision-add/comision-add.component';
 import { ComisionViewComponent } from './components/comision/comision-view/comision-view.component';
@@ -61,6 +61,7 @@ import { AsignaturaEditComponent } from './components/asignatura/asignatura-edit
 import { InscripcionAsignaturaComponent } from './components/alumno/inscripcion-asignatura/inscripcion-asignatura.component';
 import { AsignarAulaComponent } from './components/comision/asignar-aula/asignar-aula.component';
 import { ComisionEditComponent } from './components/comision/comision-edit/comision-edit.component';
+import { AsignarComisionAsignaturaComponent } from './components/docente/asignar-comision-asignatura/asignar-comision-asignatura.component';
 
 
 @NgModule({
@@ -86,7 +87,6 @@ import { ComisionEditComponent } from './components/comision/comision-edit/comis
     DocenteAddComponent,
     DocenteViewComponent,
     DocenteEditComponent,
-    AsignarAsignaturaComponent,
     ComisionComponent,
     ComisionAddComponent,
     ComisionViewComponent,
@@ -96,7 +96,8 @@ import { ComisionEditComponent } from './components/comision/comision-edit/comis
     AsignaturaEditComponent,
     InscripcionAsignaturaComponent,
     AsignarAulaComponent,
-    ComisionEditComponent
+    ComisionEditComponent,
+    AsignarComisionAsignaturaComponent
   ],
   entryComponents: [
     AlumnoViewComponent,
@@ -129,7 +130,8 @@ import { ComisionEditComponent } from './components/comision/comision-edit/comis
     MatDatepickerModule,
     MatMomentDateModule,
     MatIconModule,
-    MatStepperModule
+    MatStepperModule,
+    MatChipsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

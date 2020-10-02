@@ -62,3 +62,7 @@ body{
   .mat-tab-group {
     margin-bottom: 48px;
   }
+
+  .example-chip-list {
+    width: 100%;
+  }

@@ -1,1 +1,165 @@
-<p>asignatura-add works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <!-- TITULO DEL FORMULARIO -->
+            <h1>{{ titulo }}</h1>
+            <hr>
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- MENSAJE ERROR -->
+        <div *ngIf="flagError" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">{{ error }}</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+        <div class="form-horizontal">
+            <form class="form-group" [formGroup]="formulario">
+                <!-- DATOS DE LA CARRERA -->
+                <div class="container">
+                    <h2>DATOS ASIGNATURA</h2>
+                    <hr>
+                    <!-- INICIO PRIMERA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO NIVEL -->
+                        <div class="form-group col-md-3">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nivel</mat-label>
+                                <input matInput name="nivel" id="nivel" type="text"
+                                                formControlName="nivel" 
+                                                (input)="onChangeNivel()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('nivel').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                                <mat-error *ngIf="formulario.get('nivel').hasError('pattern')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
+                                </mat-error> 
+                                <mat-error *ngIf="formulario.get('nivel').hasError('min')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">El nivel minimo es 1</label>
+                                </mat-error> 
+                                <mat-error *ngIf="formulario.get('nivel').hasError('max')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">El nivel maximo es 6</label>
+                                </mat-error> 
+                            </mat-form-field>
+                        </div>
+
+                        <!-- CAMPO CARRERA -->
+                        <div class="form-group col-md-9">
+                            <mat-form-field>
+                                <mat-label>Carrera</mat-label>
+                                <mat-select name="carrera" id="carrera" 
+                                            formControlName="carrera"
+                                            (selectionChange)="seleccionarCarrera($event.value)">
+                                    <mat-option *ngFor="let c of comboCarrera" [value]="c">{{ c.nombre }}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formulario.get('carrera').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN PRIMERA FILA-->
+
+                    <!-- INICIO SEGUNDA FILA -->
+                    <div class="form-row">
+                        <!-- CAMPO NOMBRE ASIGNATURA -->
+                        <div class="form-group col-md-9">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Nombre Asignatura</mat-label>
+                                <input matInput name="nombre" id="nombre" type="text"
+                                                formControlName="nombre" 
+                                                (input)="onChangeNombreAsignatura()"
+                                                required>
+                                <mat-error *ngIf="formulario.get('nombre').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+
+                        <div class="from-groupo col-md-3">
+                            <mat-form-field>
+                                <mat-label>Tipo Asignatura</mat-label>
+                                <mat-select name="tipoAsignatura" id="tipoAsignatura"
+                                            [placeholder]="'Tipo Asignatura'"
+                                            formControlName="tipoAsignatura"
+                                            (selectionChange)="seleccionarTipoAsignatura($event.value)"
+                                            required>
+                                    <mat-option value="1">Obligatoria</mat-option>
+                                    <mat-option value="2">Electiva</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="formulario.get('tipoAsignatura').hasError('required')">
+                                    <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
+                                </mat-error>  
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN SEGUNDA FILA -->
+
+                    <!-- INICIO TERCERA FILA -->
+                    <div class="form-row">
+                       <!-- CAMPO DESCRIPCION -->
+                       <div class="form-group col-md-12">
+                            <mat-form-field class="example-full-width">
+                                <mat-label>Descripcion</mat-label>
+                                <textarea matInput placeholder="Descripcion de la asignatura"
+                                                formControlName="descripcion"
+                                                (input)="onChangeDescripcion()"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!-- FIN TERCERA FILA -->
+
+                    <!-- SECCION CORRELATIVAS -->
+                    <!-- INICIO CUARTA FILA -->
+                    <div class="form-row" *ngIf="flagCorrelativas">
+                        <div class="form-group col-md-12">
+                            <mat-form-field class="example-chip-list">
+                                <mat-chip-list #chipList aria-label="Seleccion de Correlatividades">
+                                    <mat-chip *ngFor="let c of correlativas" [selectable]="selectable"
+                                               [removable]="removable" (removed)="remove(c)">
+                                        {{ c.nombre }}
+                                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="Asignaturas Correlativas" #correlativaInput [formControl]="correlativaCtrl"
+                                            [matAutocomplete]="auto"
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="add($event)">
+                                </mat-chip-list>
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                    <mat-option *ngFor="let c of filteredAsignaturas | async" [value]="c">
+                                        {{ c.nombre }}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-6 col-md-offset-6 align-self-end" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn btn-danger mx-2" [routerLink]="['/asignatura']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Regresar
+                </button>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
+                <button mat-raised-button class="btn mx-2 float-right" 
+                                          type="submit" color="primary" (click)="save()"
+                                          [disabled]="!formulario.valid">
+                    <span class="material-icons">
+                        save
+                    </span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

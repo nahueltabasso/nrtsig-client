@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Carrera, Departamento, Docente, DocenteFiltrosDTO } from 'src/app/models/carrera.models';
 import { CarreraService } from 'src/app/services/carrera.service';
 import { DocenteService } from 'src/app/services/docente.service';
 import { LABEL_PAGINADOR, PATTERN_ONLYLETTERS } from 'src/app/shared/constants';
+import { AsignarComisionAsignaturaComponent } from './asignar-comision-asignatura/asignar-comision-asignatura.component';
 
 @Component({
   selector: 'app-docente',
@@ -28,7 +30,8 @@ export class DocenteComponent implements OnInit {
   
   constructor(private docenteService: DocenteService,
               private carreraService: CarreraService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -106,5 +109,15 @@ export class DocenteComponent implements OnInit {
     this.formulario.controls['carrera'].disable();
     this.formulario.controls['asignatura'].disable();
     this.ngOnInit();
+  }
+
+  public openAsignarAsignaturaComision(docente: Docente) {
+    const modalRef = this.dialog.open(AsignarComisionAsignaturaComponent, {
+      width: '50%',
+      data: { docente: docente }
+    });
+    modalRef.afterClosed().subscribe(data => {
+      
+    });
   }
 }

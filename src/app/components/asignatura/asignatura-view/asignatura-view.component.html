@@ -1,1 +1,113 @@
-<p>asignatura-view works!</p>
+<mat-card class="m-4">
+    <mat-card-header>
+        <mat-card-title>
+            <h1 class="animated fadeIn">
+                {{ titulo }}
+            </h1>
+        </mat-card-title>
+        <hr>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-horizontal">
+            <div class="modal-body">
+                <form class="form-group" [formGroup]="formulario">
+                    <div class="col-sm-12">
+                        <div class="row animated fadeIn fast">
+                            <!-- CAMPO NOMBRE COMPLETO-->
+                            <div class="form-group col-md-8">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Nombre Asignatura</mat-label>
+                                    <input matInput name="nombre" id="nombre" type="text"
+                                                    formControlName="nombre">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO CREATE AT -->
+                            <div class="form-group col-md-4">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Fecha Alta</mat-label>
+                                    <input matInput name="createAt" id="createAt" type="text"
+                                                    formControlName="createAt">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                        <div class="row animated fadeIn fast">
+                            <!-- CAMPO NIVEL -->
+                            <div class="form-group col-md-2">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Nivel</mat-label>
+                                    <input matInput name="nivel" id="nivel" type="text"
+                                                    formControlName="nivel">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO CARRERA -->
+                            <div class="form-group col-md-7">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Carrera</mat-label>
+                                    <input matInput name="carrera" id="carrera" type="text"
+                                                    formControlName="carrera">
+                                </mat-form-field>
+                            </div>
+
+                            <!-- CAMPO TIPO ASIGNATURA -->
+                            <div class="form-group col-md-3">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Tipo Asignatura</mat-label>
+                                    <input matInput name="tipoAsignatura" id="tipoAsignatura" type="text"
+                                                    formControlName="tipoAsignatura">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Descripcion
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Resumen de la Asignatura 
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <p>{{ asignatura.descripcion ? asignatura.descripcion : 'No hay descripcion' }}</p>
+                    </mat-expansion-panel>
+                    <br>
+                    <mat-expansion-panel (opened)="expansionPanel = true"
+                                         (closed)="expansionPanel = false"
+                                         *ngIf="asignatura.asignaturasHijas.length > 0">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                               Correlatividades
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Asignaturas correlativas a {{ asignatura.nombre }}
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-chip-list class="example-chip" cdkDropList 
+                            cdkDropListOrientation="horizontal"
+                            (cdkDropListDropped)="drop($event)">
+                            <mat-chip
+                                class="example-box"
+                                cdkDrag
+                                *ngFor="let c of asignatura.asignaturasHijas">
+                                {{ c.correlativa.nombre }}
+                            </mat-chip>
+                        </mat-chip-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                  
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div class="modal-footer">
+    <button (click)="close()" 
+            type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cerrar
+    </button> 
+</div>

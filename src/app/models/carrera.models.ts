@@ -68,11 +68,13 @@ export class Comision {
     createAt: Date;
     planCarrera: PlanCarrera;
     aulas: Aula[];
+    turnoCursado: number;
 }
 
 export class ComisionFiltrosDTO {
     numeroComision: number;
     carrera: Carrera;
+    turnoCursado: number;
 }
 
 export class Aula {
@@ -100,4 +102,37 @@ export class DocenteFiltrosDTO {
     departamento: Departamento;
     carrera: Carrera;
     asignatura: string;
+}
+
+export class Asignatura {
+    id: number;
+    nombre: string;
+    descripcion: string;
+    createAt:Date;
+    nivel: number;
+    planCarrera: PlanCarrera;
+    asignaturasHijas: AsignaturaCorrelativa[];
+    tipoAsignatura: number;
+}
+
+export class AsignaturaCorrelativa {
+    id: number;
+    idAsignaturaPrincipal: number;
+    correlativa: Asignatura;
+}
+
+export class AsignaturaFiltrosDTO {
+    nombre: string;
+    nivel: number;
+    carrera: Carrera;
+}
+
+export class DocenteComisionAsignatura {
+    id: number;
+    docente: Docente;
+    comision: Comision;
+    asignatura: Asignatura;
+    diaHoraCursado: string;
+    funcionProfesor: number;
+    cantidadHorasSemanales: number;
 }

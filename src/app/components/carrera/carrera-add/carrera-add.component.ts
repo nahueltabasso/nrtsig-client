@@ -82,7 +82,6 @@ export class CarreraAddComponent implements OnInit {
   }
 
   public save() {
-    console.log('luego de corregir el error', this.carrera);
     // Guardar la carrera
     this.carreraService.crearCarrera(this.carrera).subscribe(data => {
       this.carrera = data;
