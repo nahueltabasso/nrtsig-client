@@ -61,4 +61,8 @@ export class ComisionService {
   listarComisionesByCarrera(idCarrera: number): Observable<Comision[]> {
     return this.http.get<Comision[]>(this.endPointBase + '/listar-comisiones-carrera/' + idCarrera);
   }
+
+  listarComisionesByNivelAndPlanCarrera(nivel: number, idPlanCarrera: number): Observable<Comision[]> {
+    return this.http.get<Comision[]>(this.endPointBase + '/comisiones-posibles-asignatura/' + idPlanCarrera + '?nivel=' + nivel);
+  }
 }

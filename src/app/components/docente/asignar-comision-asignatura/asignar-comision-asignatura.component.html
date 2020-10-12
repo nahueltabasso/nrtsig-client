@@ -5,8 +5,32 @@
                 <h1 class="animated fadeIn" style="margin-left: -25px;">{{ titulo }}</h1>
             </div>
         </mat-card-header>
+
+         <!-- MOSTRAR CARTEL SI EL BACKEND DEVUELVE UN ERROR -->
+         <div *ngIf="flagError" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+            <h4 class="alert-heading">{{ error }}</h4>
+            <p>
+                <i class="fa fa-exclamation fa-2x"></i>
+            </p>
+        </div>
+
         <div class="card-body">
             <form class="form-group" [formGroup]="formulario">
+
+                <div class="row" *ngIf="flagAutoComplete">
+                    <div class="form-group col-md-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Buscar Docente" 
+                                            [formControl]="autocompleteCtrl"
+                                            [matAutocomplete]="autocomplete">
+                            <mat-autocomplete #autocomplete="matAutocomplete"
+                                              [displayWith]="mostrarDocente"
+                                              (optionSelected)="seleccionarDocente($event)">
+                                <mat-option *ngFor="let d of docentesAutocomplete" [value]="d">{{ d.apellido }}, {{ d.nombre }}</mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -93,6 +117,7 @@
                                             required>
                         </mat-form-field>
                     </div>
+
 
                     <div class="form-group col-md-3">
                         <mat-form-field class="example-full-width">
