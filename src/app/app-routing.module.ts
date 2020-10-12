@@ -19,6 +19,8 @@ import { DocenteEditComponent } from './components/docente/docente-edit/docente-
 import { AsignaturaComponent } from './components/asignatura/asignatura.component';
 import { AsignaturaAddComponent } from './components/asignatura/asignatura-add/asignatura-add.component';
 import { AsignaturaEditComponent } from './components/asignatura/asignatura-edit/asignatura-edit.component';
+import { InscripcionListComponent } from './components/inscripcion-asignatura/inscripcion-list/inscripcion-list.component';
+import { InscripcionAddComponent } from './components/inscripcion-asignatura/inscripcion-add/inscripcion-add.component';
 
 const routes: Routes = [
   { path: 'alumnos', component: AlumnoComponent },
@@ -40,7 +42,9 @@ const routes: Routes = [
   { path: 'docente/edit/:id', component: DocenteEditComponent },
   { path: 'asignatura', component: AsignaturaComponent },
   { path: 'asignatura/add', component: AsignaturaAddComponent },
-  { path: 'asignatura/edit/:id', component: AsignaturaEditComponent }
+  { path: 'asignatura/edit/:id', component: AsignaturaEditComponent },
+  { path: 'inscripcionesasignatura', component: InscripcionListComponent },
+  { path: 'inscripcionesasignatura/add', component: InscripcionAddComponent }
 ];
 
 @NgModule({

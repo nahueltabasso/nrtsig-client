@@ -1,4 +1,5 @@
-<mat-card-header style="margin-top: 15px;">
+<br>
+<mat-card-header style="padding-top: 20px;">
     <mat-card-title>
         <h1 class="animated fadeIn">
             {{ titulo | uppercase }}
@@ -14,86 +15,80 @@
 
   </mat-card-header>
     <!-- MOSTRAR SI EL ALUMNO AUN NO SE HA INSCRITO A NINGUNA CARRERA -->
-    <div *ngIf="flagComboCarreraIsEmpty" class="alert alert-danger text-center mt-3 animated fadeIn faster">
+    <!-- <div *ngIf="flagComboCarreraIsEmpty" class="alert alert-danger text-center mt-3 animated fadeIn faster">
         <h4 class="alert-heading">El alumno {{ alumno.apellido }}, {{ alumno.nombre }} no esta inscripto a ninguna carrera</h4>
         <p>
             <i class="fa fa-exclamation fa-2x"></i>
         </p>
-    </div>    
+    </div>     -->
   
   <!-- INICIO STEPPER -->
   <mat-horizontal-stepper linear #stepper>
     <!-- INICIO PRIMER STEPPER -->
-    <mat-step [stepControl]="formularioAlumno">
-        <ng-template matStepLabel>Datos Alumno</ng-template>
-        <form [formGroup]="formularioAlumno">
-            <div class="col-sm-12">
-                <div class="row">
-
-                    <!-- CAMPO LEGAJO -->
-                    <div class="form-group col-md-2">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Legajo</mat-label>
-                            <input matInput name="legajo" id="legajo" type="text"
-                                            formControlName="legajo" >
-                        </mat-form-field>
-                    </div>
-                    
-
-                    <!-- CAMPO NOMBRE -->
-                    <div class="form-group col-md-5">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Nombre</mat-label>
-                            <input matInput name="nombre" id="nombre" type="text"
-                                            formControlName="nombre" >
-                        </mat-form-field>
-                    </div>
-
-                    <!-- CAMPO APELLIDO -->
-                    <div class="form-group col-md-5">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Apellido</mat-label>
-                            <input matInput name="apellido" id="apellido" type="text"
-                                            formControlName="apellido" >
-                        </mat-form-field>
-                    </div>
-                    
-                </div>
-
-                <div class="row">
-
-                    <!-- CAMPO FECHA NACIMIENTO -->
-                    <div class="form-group col-md-4">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Fecha Nacimiento</mat-label>
-                            <input matInput name="fechaNacimiento" id="fechaNacimiento" type="text"
-                                            formControlName="fechaNacimiento" >
-                        </mat-form-field>
-                    </div>
-
-                    <!-- CAMPO TIPO DOCUMENTO -->
-                    <div class="form-group col-md-4">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Tipo Documento</mat-label>
-                            <input matInput name="tipoDoc" id="tipoDoc" type="text"
-                                            formControlName="tipoDoc" >
-                        </mat-form-field>
-                    </div>
-
-                    <!-- CAMPO NUMERO DOCUMENTO -->
-                    <div class="form-group col-md-4">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Nro Documento</mat-label>
-                            <input matInput name="nroDoc" id="nroDoc" type="text"
-                                            formControlName="nroDoc" >
-                        </mat-form-field>
-                    </div>
-                    
-                </div>
+    <mat-step [stepControl]="autocompleteCtrl">
+        <ng-template matStepLabel>Alumnos</ng-template>
+        
+        <div class="row">
+            <div class="form-group col-md-12">
+                <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Buscar Alumno" 
+                                    [formControl]="autocompleteCtrl"
+                                    [matAutocomplete]="autocomplete">
+                    <mat-autocomplete #autocomplete="matAutocomplete"
+                                      [displayWith]="mostrarAlumno()"
+                                      (optionSelected)="seleccionarAlumno($event)">
+                        <mat-option *ngFor="let a of alumnosAutocomplete" [value]="a">{{ a.apellido }}, {{ a.nombre }}</mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
             </div>
-        </form>
+        </div>
 
-        <div class="row clearfix" style="padding-left: 900px;">
+        <div class="row">
+            <table mat-table 
+            *ngIf="alumnosSeleccionados.length > 0"
+            [dataSource]="alumnosSeleccionados" class="mat-elevation-z8 m-3 animated fadeIn" style="width: 100%; margin: 0rem!important;">
+            
+                <ng-container matColumnDef="legajo">
+                    <th mat-header-cell *matHeaderCellDef>Legajo</th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.legajo }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="apellido">
+                    <th mat-header-cell *matHeaderCellDef>Apellido</th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.apellido }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef>Nombre</th>
+                    <td mat-cell *matCellDef="let alumno"> {{ alumno.nombre }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let alumno">
+                        <button mat-mini-fab color="primary" title="Ver" (click)="verAlumno(alumno)">
+                            <span class="material-icons">
+                                person
+                            </span>                                
+                        </button>
+
+                        <button mat-mini-fab color="primary" title="Eliminar" (click)="eliminarDeAlumnosSeleccionados(alumno)">
+                            <span class="material-icons">
+                                delete_forever
+                            </span>                  
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let alumno; columns: displayedColumns;"></tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="row clearfix" style="padding-left: 1060px; padding-top: 25px;">
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                 <button mat-raised-button matStepperNext 
                                         class="btn mx-2 float-right" 
@@ -110,13 +105,13 @@
     <!-- FIN PRIMER STEPPER -->
   
     <!-- INICIO SEGUNDO STEPPER -->
-    <mat-step [stepControl]="formularioInscripcion" [optional]="isOptional">
+    <mat-step [stepControl]="formulario" [optional]="isOptional">
       <ng-template matStepLabel>Datos Asignatura</ng-template>
       <mat-card-content>
         <h2>DATOS ASIGNATURA</h2>
         <hr>
         <div class="form-horizontal">
-          <form class="form-group" [formGroup]="formularioInscripcion">
+          <form class="form-group" [formGroup]="formulario">
             <div class="row">
     
                 <!-- CAMPO NIVEL -->
@@ -126,13 +121,13 @@
                         <input matInput name="nivel" id="nivel" type="text"
                                         formControlName="nivel" 
                                         required>
-                        <mat-error *ngIf="formularioInscripcion.get('nivel').hasError('required')">
+                        <mat-error *ngIf="formulario.get('nivel').hasError('required')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
                         </mat-error>  
-                        <mat-error *ngIf="formularioInscripcion.get('nivel').hasError('pattern')">
+                        <mat-error *ngIf="formulario.get('nivel').hasError('pattern')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">Ingresar solo numeros</label>
                         </mat-error> 
-                        <mat-error *ngIf="formularioInscripcion.get('nivel').hasError('max')">
+                        <mat-error *ngIf="formulario.get('nivel').hasError('max')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">El nivel maximo es 6</label>
                         </mat-error> 
                     </mat-form-field>
@@ -147,7 +142,7 @@
                                     (selectionChange)="seleccionarCarrera($event.value)">
                             <mat-option *ngFor="let carrera of comboCarrera" [value]="carrera">{{ carrera.nombre }}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formularioInscripcion.get('carrera').hasError('required')">
+                        <mat-error *ngIf="formulario.get('carrera').hasError('required')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
                         </mat-error>  
                     </mat-form-field>
@@ -162,7 +157,7 @@
                                     (selectionChange)="seleccionarAsignatura($event.value)">
                             <mat-option *ngFor="let asignatura of comboAsignatura" [value]="asignatura">{{ asignatura.nombre }}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formularioInscripcion.get('asignatura').hasError('required')">
+                        <mat-error *ngIf="formulario.get('asignatura').hasError('required')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
                         </mat-error>  
                     </mat-form-field>
@@ -179,21 +174,20 @@
                                     (selectionChange)="seleccionarComision($event.value)">
                             <mat-option *ngFor="let c of comboComision" [value]="c">{{ c.numeroComision }} - {{ c.planCarrera.carrera.nombre }}</mat-option>
                         </mat-select>
-                        <mat-error *ngIf="formularioInscripcion.get('comision').hasError('required')">
+                        <mat-error *ngIf="formulario.get('comision').hasError('required')">
                             <label style="font-weight: normal; font-size: 12px"  class="error">Campo Requerido</label>
                         </mat-error>
-                        <small *ngIf="flagLabelComision">{{ listDocentesLabel }}</small>  
                     </mat-form-field>
                 </div>
 
             </div>
           </form>
-        <div class="row clearfix" style="padding-left: 900px;">
+        <div class="row clearfix" style="padding-left: 1060px; padding-top: 10px;">
             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
                 <button mat-raised-button matStepperNext 
                                         class="btn mx-2 float-right" 
                                         type="submit" color="primary"
-                                        [disabled]="!formularioInscripcion.valid"
+                                        [disabled]="!formulario.valid"
                                         (click)="verInfoAlMomento()">
                     <span class="material-icons">
                         save
@@ -212,18 +206,18 @@
       <ng-template matStepLabel>Fin</ng-template>
       <!-- MENSAJE ACLARATORIO -->
       <div class="alert alert-success text-center mt-3 animated fadeIn faster">
-        <h4 class="alert-heading">Ya haz terminado! Para registrar la inscripcion aprieta en Registrar Inscripcion</h4>
+        <h4 class="alert-heading">Ya haz terminado! Para registrar las inscripciones aprieta en Registrar Inscripcion</h4>
         <p>
             <i class="fa fa-exclamation fa-2x"></i>
         </p>
       </div>    
-      <div class="row clearfix" style="padding-left: 900px;">
+      <div class="row clearfix" style="padding-left: 1060px; padding-top: 10px;">
         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6" style="margin-bottom: 10px;">
 
             <button mat-raised-button matStepperNext 
                                       class="btn mx-2 float-right" 
                                       type="submit" color="primary"
-                                      [disabled]="!formularioInscripcion.valid && !flagComboCarreraIsEmpty"
+                                      [disabled]="!formulario.valid && !flagComboCarreraIsEmpty"
                                       (click)="save()">
                 <span class="material-icons">
                     save

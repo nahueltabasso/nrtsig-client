@@ -1,4 +1,4 @@
-import { PlanCarrera, EstadoCarrera, Departamento } from './carrera.models';
+import { PlanCarrera, EstadoCarrera, Departamento, EstadoAsignatura, Comision, Asignatura, Carrera } from './carrera.models';
 import { Alumno } from './alumno.models';
 
 export class InscripcionCarrera {
@@ -32,4 +32,32 @@ export class InscripcionCarreraFiltrosDTO {
     nombreAlumno: string;
     apellidoAlumno: string;
     departamento: Departamento;
+}
+
+export class InscripcionAsignatura {
+    id: number;
+    fechaInscripcion: Date;
+    alumno: Alumno;
+    planCarrera: PlanCarrera;
+    estadoAsignatura: EstadoAsignatura;
+    comision: Comision;
+    asignatura: Asignatura;
+    nota: number;
+    createAt: Date;
+} 
+
+export class InscripcionAsignaturaFiltrosDTO {
+    nombreAlumno: string;
+    nombreAsignatura: string;
+    estadoAsignatura: string;
+    carrera: Carrera;
+    fechaInscripcionDesde: Date;
+    fechaInscripcionHasta: Date;
+}
+
+export class InscripcionAsignaturaGroup {
+    alumnos: Alumno[];
+    planCarrera: PlanCarrera;
+    comision: Comision;
+    asignatura: Asignatura;
 }

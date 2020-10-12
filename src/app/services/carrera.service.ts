@@ -75,4 +75,8 @@ export class CarreraService {
   getCarrerasByDuracion(duracion: number): Observable<Carrera[]> {
     return this.http.get<Carrera[]>(this.endPointBase + '/listar-carrera-por-duracion?duracion=' + duracion);
   }
+
+  getCarrerasInscriptaSegunAlumno(idAlumno: number): Observable<Carrera[]> {
+    return this.http.get<Carrera[]>(this.endPointBase + '/listar-carreras-inscriptas-segun-alumno/' + idAlumno);
+  }
 }

@@ -69,4 +69,8 @@ export class AlumnoService {
     formData.append('archivo', archivo);
     return this.http.put<Alumno>(this.endPointBase + '/editar-con-foto/' + alumno.id, formData);
   }
+
+  filtrarPorNombre(termino: string): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(this.endPointBase + '/filtrar-alumnos/' + termino);
+  }
 }

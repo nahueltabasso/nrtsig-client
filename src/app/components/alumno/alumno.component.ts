@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlumnoViewComponent } from './alumno-view/alumno-view.component';
 import Swal from 'sweetalert2';
 import { PATTERN_ONLYLETTERS, LABEL_PAGINADOR } from 'src/app/shared/constants';
+import { InscripcionAsignaturaComponent } from './inscripcion-asignatura/inscripcion-asignatura.component';
 
 @Component({
   selector: 'app-alumno',
@@ -103,6 +104,17 @@ export class AlumnoComponent implements OnInit {
         });
       }
     });
+  }
+
+  public openInscripcionAsignatura(alumno: Alumno) {
+    const modalRef = this.dialog.open(InscripcionAsignaturaComponent, { 
+      width: '1000px',
+      data: { alumno: alumno }
+     });
+
+     modalRef.afterClosed().subscribe(data => {
+       
+     });
   }
 
 }

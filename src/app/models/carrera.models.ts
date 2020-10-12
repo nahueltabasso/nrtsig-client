@@ -136,3 +136,10 @@ export class DocenteComisionAsignatura {
     funcionProfesor: number;
     cantidadHorasSemanales: number;
 }
+
+export class EstadoAsignatura {
+    id: number;
+    codigo: string;
+    descripcion: string;
+    createAt: Date;
+}

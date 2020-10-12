@@ -62,6 +62,9 @@ import { InscripcionAsignaturaComponent } from './components/alumno/inscripcion-
 import { AsignarAulaComponent } from './components/comision/asignar-aula/asignar-aula.component';
 import { ComisionEditComponent } from './components/comision/comision-edit/comision-edit.component';
 import { AsignarComisionAsignaturaComponent } from './components/docente/asignar-comision-asignatura/asignar-comision-asignatura.component';
+import { InscripcionListComponent } from './components/inscripcion-asignatura/inscripcion-list/inscripcion-list.component';
+import { InscripcionViewComponent } from './components/inscripcion-asignatura/inscripcion-view/inscripcion-view.component';
+import { InscripcionAddComponent } from './components/inscripcion-asignatura/inscripcion-add/inscripcion-add.component';
 
 
 @NgModule({
@@ -97,7 +100,10 @@ import { AsignarComisionAsignaturaComponent } from './components/docente/asignar
     InscripcionAsignaturaComponent,
     AsignarAulaComponent,
     ComisionEditComponent,
-    AsignarComisionAsignaturaComponent
+    AsignarComisionAsignaturaComponent,
+    InscripcionListComponent,
+    InscripcionViewComponent,
+    InscripcionAddComponent
   ],
   entryComponents: [
     AlumnoViewComponent,
